@@ -1,0 +1,106 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{
+	font-size: 16px;
+}
+.banner{
+	width: 100vw;
+	height: 100vh;
+	padding: 0rem 1rem;
+	padding-top: 2.5rem;
+}
+.bj{
+	display: block;
+	width: 70%;
+	margin: 0 auto;
+	margin-bottom: 1.2rem;
+}
+.title{
+	text-align: center;
+	margin-bottom: 0.5rem;
+	letter-spacing: 0.1rem;
+}
+.subTitle{
+	font-size: 0.75rem;
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+.wxgreen{
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	line-height: 2.2rem;
+	letter-spacing: 0.1rem;
+	background: #48BF63;
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+}
+.wxgreen img{
+	display: inline-block;
+	width: 1.3rem;
+	height: 1.3rem;
+	vertical-align: middle;
+}
+.iphone-box{
+	color: #7F7F89;
+	text-align: center;
+}
+
+/* 微信登录 */
+.shadow-box{
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0,0,0,.3);
+	position: absolute;
+	top: 0;left: 0;
+	display: none;
+}
+.shadow-inner{
+	width: 100vw;
+	padding: 1.5rem 0.8rem;
+	
+	background: #fff;
+	border-top-left-radius: 0.3rem;
+	border-top-right-radius: 0.3rem;
+	position: absolute;
+	bottom: 0;left: 0;
+}
+.iicon{
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	vertical-align: middle;
+	float: right;
+}
+.iphone-text{
+	line-height: 3rem;
+	border-bottom: 1px solid #ccc;
+}
+.suresure{	
+	width: 0.8rem;
+	height: 0.8rem;
+	float: right;
+	margin-right: 0.5rem;
+	margin-top: 0.8rem;
+}
+.user-text{
+	color: #717584;
+	font-size: 0.7rem;
+	margin-top: 0.8rem;
+}
+.btnBox{
+	width: 100%;
+	margin-top: 2.5rem;
+}
+.btn{
+	display: inline-block;
+	width: 48%;
+	color: #319745;
+	text-align: center;
+	line-height: 2rem;
+	background: #EDEDED;
+	border-radius: 0.3rem;
+}

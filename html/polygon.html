@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/positionPicker.html -->
+		<!-- <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" /> -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>覆盖物事件</title>
+		<link rel="stylesheet" type="text/css" href="../css/detailed_address.css" />
+	</head>
+
+	<body>
+		<div id="container" class="map" tabindex="0"></div>
+
+		<p class="orderRange">下单范围 <img src="../images/xdfw.png"></p>
+		<div class="dingwei-box">
+			<p class="dingwei-top"><i class="dian"></i>
+				<input type="text" name="" id="address-ipt" value="" placeholder="请选择详细寄件地址" disabled="" />
+			</p>
+			<p class="dingwei-top" style="border-bottom: none;">
+				<i class="dian" style="background: #F5406B;"></i>
+				<input type="text" name="" id="lastaddress-ipt" value="" placeholder="请选择具体的目的地" readonly />
+			</p>
+		</div>
+		<div class="button-group">
+			<input type="button" class="button" value="地图编辑完成" onClick="closeEditPolygon();" />
+		</div>
+		<div class="surestart" id="surestart">确定出发</div>
+		<div class="surestart" style="background: #E6E6E6;display: none;" id="hidesure">确定出发</div>
+		
+		<!-- 底部具体位置 -->
+		<div id='right'>
+			<div>
+				<!-- <div class='title'>选择模式</div> -->
+				<input type='hidden' name='mode' value='dragMap' checked>
+				<!-- 拖拽地图模式 -->
+				</input>
+				</br>
+				<input type='hidden' name='mode' value='dragMarker'>
+				<!-- 拖拽Marker模式 -->
+				</input>
+			</div>
+			<div>
+				<button id='start' hidden="hidden">开始选点</button>
+				<button id='stop' hidden="hidden">关闭选点</button>
+			</div>
+			<div>
+				<!-- <div class='title'>选址结果</div> -->
+				<!-- <div class='c'>经纬度:</div> -->
+				<div id='longitude'></div>
+				<div id='latitude'></div>
+				<div id='endlongitude'></div>
+				<div id='endlatitude'></div>
+				<!-- <div class='c'>地址:</div> -->
+				<!-- <div id='address'></div>
+				<div id='lastaddress'></div> -->
+				<!-- <div class='c'>最近的路口:</div> -->
+				<div id='nearestJunction' hidden="hidden"></div>
+				<!-- <div class='c'>最近的路:</div> -->
+				<div id='nearestRoad' hidden="hidden"></div>
+				<!-- <div class='c'>最近的POI:</div> -->
+				<div id='nearestPOI' hidden="hidden"></div>
+			</div>
+			
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" hidden>
+				<!-- 请选择具体的目的地 -->
+			</div>
+		</div>
+		
+		<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.ToolBar'></script>
+		<!-- UI组件库 1.0 -->
+		<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/detailed_address.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var place = 0
+			AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
+				var map = new AMap.Map('container', {
+					zoom: 16,
+					scrollWheel: false
+				})
+				var positionPicker = new PositionPicker({
+					mode: 'dragMap',
+					map: map
+				});
+
+				positionPicker.on('success', function(positionResult) {
+					if(place == 0){
+						document.getElementById('longitude').innerHTML = positionResult.position;
+						document.getElementById('latitude').innerHTML = positionResult.position;
+						document.getElementById('address-ipt').value = positionResult.address;
+						document.getElementById('nearestJunction').innerHTML = positionResult.nearestJunction;
+						document.getElementById('nearestRoad').innerHTML = positionResult.nearestRoad;
+						document.getElementById('nearestPOI').innerHTML = positionResult.nearestPOI;
+					}else{
+						document.getElementById('endlongitude').innerHTML = positionResult.position;
+						document.getElementById('endlatitude').innerHTML = positionResult.position;
+						document.getElementById('lastaddress-ipt').value = positionResult.address;
+						document.getElementById('nearestJunction').innerHTML = positionResult.nearestJunction;
+						document.getElementById('nearestRoad').innerHTML = positionResult.nearestRoad;
+						document.getElementById('nearestPOI').innerHTML = positionResult.nearestPOI;
+					}
+					
+				});
+				positionPicker.on('fail', function(positionResult) {
+					document.getElementById('longitude').innerHTML = ' ';
+					document.getElementById('latitude').innerHTML = ' ';
+					document.getElementById('endlongitude').innerHTML = ' ';
+					document.getElementById('endlatitude').innerHTML = ' ';
+					document.getElementById('address-ipt').value = ' ';
+					document.getElementById('lastaddress-ipt').value = ' ';
+					document.getElementById('nearestJunction').innerHTML = ' ';
+					document.getElementById('nearestRoad').innerHTML = ' ';
+					document.getElementById('nearestPOI').innerHTML = ' ';
+				});
+				var onModeChange = function(e) {
+					positionPicker.setMode(e.target.value)
+				}
+				var startButton = document.getElementById('start');
+				var stopButton = document.getElementById('stop');
+				var dragMapMode = document.getElementsByName('mode')[0];
+				var dragMarkerMode = document.getElementsByName('mode')[1];
+				AMap.event.addDomListener(startButton, 'click', function() {
+					positionPicker.start(map.getBounds().getSouthWest())
+				})
+				AMap.event.addDomListener(stopButton, 'click', function() {
+					positionPicker.stop();
+				})
+				AMap.event.addDomListener(dragMapMode, 'change', onModeChange)
+				AMap.event.addDomListener(dragMarkerMode, 'change', onModeChange);
+				positionPicker.start();
+				map.panBy(0, 1);
+
+				map.addControl(new AMap.ToolBar({
+					liteStyle: true
+				}))
+				   
+				var lineArr = [
+        [116.368904, 39.913423],
+        [116.382122, 39.901176],
+        [116.387271, 39.912501],
+        [116.398258, 39.904600]
+    ];
+    var circle = new AMap.Circle({
+        map: map,
+        center: lineArr[0],          //设置线覆盖物路径
+        radius: 1500,
+        strokeColor: "#3366FF", //边框线颜色
+        strokeOpacity: 0.3,       //边框线透明度
+        strokeWeight: 3,        //边框线宽
+        fillColor: "#FFA500", //填充色
+        fillOpacity: 0.35//填充透明度
+    });
+				// 地理围栏
+			   var polygonArr = [[116.403322, 39.920255],
+					[116.410703, 39.897555],
+					[116.402292, 39.892353],
+					[116.389846, 39.891365]];
+				var polygon = new AMap.Polygon({
+					map: map,
+					path: polygonArr,//设置多边形边界路径
+					strokeColor: "#FF33FF", //线颜色
+					strokeOpacity: 0.2, //线透明度
+					strokeWeight: 3,    //线宽
+					fillColor: "#1791fc", //填充色
+					fillOpacity: 0.35//填充透明度
+				});
+				map.setFitView();
+				
+				
+				$("#address-ipt").click(function(){
+					place = 0
+				})
+				$("#lastaddress-ipt").click(function(){
+					place = 1
+				})
+			});
+		</script>
+	</body>
+
+</html>

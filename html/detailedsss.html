@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>关键字检索</title>
+		<link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css" />
+		<style type="text/css">
+			#panel {
+				position: absolute;
+				background-color: white;
+				max-height: 90%;
+				overflow-y: auto;
+				top: 10px;
+				right: 10px;
+				width: 280px;
+			}
+
+			#myPageTop {
+				width: 100vw;
+				background: none;
+				border: none;
+				border-bottom: 1px solid #ccc;
+				padding: 0 1.5rem !important;
+				box-sizing: border-box;
+				top: 0;
+				right: 0;
+				margin: 0;
+				line-height: 3rem;
+			}
+
+			#cancel {
+				float: right;
+			}
+
+			input {
+				display: inline-block;
+				width: 59% !important;
+				margin-left: 1rem;
+				outline: none;
+				border: none;
+				background: none;
+			}
+
+			.amap-sug-result {
+				width: 100vw !important;
+				top: 43px !important;
+				left: 0 !important;
+				border: none !important;
+			}
+
+			.auto-item {
+				font-size: 1rem;
+				padding: 0 1.5rem;
+				line-height: 3rem;
+				border-bottom: 1px solid #ccc;
+			}
+
+			.amap-sug-result .auto-item:last-child {
+				border-bottom: none;
+			}
+		</style>
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f"></script>
+		<!-- 输入提示后查询 -->
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+		<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	</head>
+	<body>
+		<div id="container" style="display: none;"></div>
+		<div id="panel"></div>
+		<div id="myPageTop">
+			<span id="citys">太原市</span>
+			<input id="tipinput" type="text" placeholder="请输入地址关键字搜索">
+			<span id="cancel">取消</span>
+		</div>
+		<script type="text/javascript">
+			var map = new AMap.Map("container", {
+				resizeEnable: true
+			});
+			//输入提示
+			var autoOptions = {
+				input: "tipinput"
+			};
+			var auto = new AMap.Autocomplete(autoOptions);
+			var placeSearch = new AMap.PlaceSearch({
+				map: map
+			}); //构造地点查询类
+			AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+			function select(e) {
+				placeSearch.setCity(e.poi.adcode);
+				placeSearch.search(e.poi.name); //关键字查询查询
+			}
+
+			AMap.service(["AMap.PlaceSearch"], function() {
+				//构造地点查询类
+				var placeSearch = new AMap.PlaceSearch({
+					pageSize: 5, // 单页显示结果条数
+					pageIndex: 1, // 页码
+					city: "010", // 兴趣点城市
+					citylimit: true, //是否强制限制在设置的城市内搜索
+					map: map, // 展现结果的地图实例
+					panel: "panel", // 结果列表将在此容器中进行展示。
+					autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+				});
+				//关键字查询
+				placeSearch.search($("#tipinput").val());
+			});
+		</script>
+	</body>
+</html>

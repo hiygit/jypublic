@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/index_index.css" />
+		<link rel="stylesheet" href="../css/lCalendar.css">
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!-- 2020-08-19  修改html 26、31、205行加style="display: none;" -->
+		<!-- 2020-08-19  修改js 注释 379-382行-->
+		<div class="banner">
+			<header>
+				<span class="heat" id="head"><img id="headimg" class="userpic" src="../images/logox.png"></span>
+				<h4>晋运村村通</h4>
+			</header>
+			<div class="banner-img">
+				<!-- <span class="heat" id="head"><img id="headimg" class="userpic" src="../images/logox.png"></span>
+				<h4>晋运村村通</h4> -->
+			</div>
+			<div class="content">
+				<div style="overflow: hidden;">
+					<span style="display: none;" class="content-top active" id="passengerBackground">乘客出行</span>
+					<span class="content-top" id="expressBackground">小件快运</span>
+				</div>
+				<div class="bigBox">
+					<!-- 乘客出行 -->
+					<div style="display: none;" class="bigBoxTab" id="passenger">
+						<div class="list-box" id="startPlace">
+							<img class="icon" src="../images/chufadi.png">
+							<span class="stic-text">出发地</span>
+							<span class="span-right">
+								<input type="text" name="" id="chufadi" value="" disabled="disabled" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box" id="endPlace">
+							<img class="icon" src="../images/mudidi.png">
+							<span class="stic-text">目的地</span>
+							<span class="span-right">
+								<input type="text" name="" id="mudidi" value="" disabled="disabled" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box" id="carPeople-input">
+							<img class="icon" src="../images/people.png">
+							<span class="stic-text">乘车人数</span>
+							<span class="span-right">
+								<input type="text" name="" id="carPeople-num" value="" disabled="disabled" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<img class="icon" src="../images/chufatime.png">
+							<span class="stic-text">最早出发时间</span>
+							<span class="span-right">
+								<input type="text" name="input_date" id="demo3" value="" readonly />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<img class="icon" src="../images/lasttime.png">
+							<span class="stic-text">最晚出发时间</span>
+							<span class="span-right">
+								<input type="text" name="input_date" id="demo2" value="" readonly />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<img class="icon" src="../images/xingli.png">
+							<span class="stic-text">是否带有行李</span>
+							<!-- 开关 -->
+							<input id="isHaveLuggage" class="switch-btn switch-btn-animbg" type="checkbox">
+							<!-- <label><input class="switch-btn switch-btn-animbg" type="checkbox" checked> 默认选中</label> -->
+						</div>
+						<div class="list-box">
+							<span class="stic-text">备注</span>
+							<span class="span-right">
+								<input type="text" maxlength="18" name="" id="remarks" value="" placeholder="最多18个字" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						
+						<div class="route">
+							历史线路: 
+							<p id="historyLine" style="display: inline-block;color: #666;"> 
+								<!-- <span id="historyStartCity"></span>
+								<span id="historyEndCity"></span> -->
+								太原市
+							</p>
+						<!-- <i style="color: #666;"> - </i> -->
+						</div>
+						<p class="protocol"><i></i> 点击购买行程表示已阅读并同意<a href="http://www.jycct.cn/web/userAgreement/securityAgreement.html" class="blue-text">车票预订协议与保障协议</a></p>
+						<a class="buy" href="#javascript" id="next">下一步</a>
+						<div class="orderdw" id="orderdw">
+							<img src="../images/dingwei.png">
+						</div>
+					</div>
+					<!-- 小件快运 -->
+					<div class="bigBoxTab" style="display: block;" id="express">
+						<div class="list-box" id="expressStartPlace" style="overflow: hidden;">
+							<!-- <div> -->
+								<img class="icon" src="../images/chufadi.png">
+								<span class="stic-text">寄件地址</span>
+								<span class="span-right">
+									<input type="text" name="" id="expresschufadi" value="" disabled="disabled" />
+									<img class="yjl" src="../images/youlan.png">
+								</span>
+							<!-- </div> -->
+							<div class="express-detail-address" id="express-detail-startAddress"></div>
+							<p class="setiid" style="display: none;"></p>   <!-- 获取站点 返回的setiid -->
+							<p class="mailingPay" style="display: none;"></p>    <!-- 寄件方式 -->
+						</div>
+						<div class="list-box" id="expressEndPlace" style="overflow: hidden;">
+							<img class="icon" src="../images/mudidi.png">
+							<span class="stic-text">收件地址</span>
+							<span class="span-right">
+								<input type="text" name="" id="expressmudidi" value="" disabled="disabled" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+							<div class="express-detail-address" id="express-detail-endAddress"></div>
+							<!-- <p class="setiid" style="display: none;"></p> -->
+						</div>
+						<div class="list-box" id="carPeople-input">
+							<img class="icon" src="../images/people.png">
+							<span class="stic-text">寄件人</span>
+							<span class="span-right">
+								<input type="text" id="sendName" value="" placeholder="请填写寄件人姓名" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<span>
+								<img class="icon" src="../images/xingli.png">
+								<span class="stic-text">寄件人手机号</span>
+							</span>
+							<!-- <img class="icon" src="../images/xingli.png">
+							<span class="stic-text">寄件人手机号</span> -->
+							<span class="span-right">
+								<input type="tel" maxlength="11" name="input_date" id="sendPhone" value="" placeholder="请填写寄件人手机号" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<img class="icon" src="../images/people.png">
+							<span class="stic-text">收件人</span>
+							<span class="span-right">
+								<input type="text" name="input_date" id="consigneeName" value="" placeholder="请填写收件人姓名" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<img class="icon" src="../images/xingli.png">
+							<span class="stic-text">收件人手机号</span>
+							<span class="span-right">
+								<input type="tel" maxlength="11" name="input_date" id="consigneePhone" value="" placeholder="请填写收件人手机号" /> 
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>
+						<div class="list-box">
+							<span class="stic-text">备注</span>
+							<span class="span-right">
+								<input type="text" maxlength="18" name="" id="remarks" value="" placeholder="最多18个字" />
+								<img class="yjl" src="../images/youlan.png">
+							</span>
+						</div>		
+						<p class="protocol" style="margin-top: 2.5rem;"><i></i> 点击购买行程表示已阅读并同意<a href="http://www.jycct.cn/web/userAgreement/securityAgreement.html" class="blue-text">车票预订协议与保障协议</a></p>
+						<!-- <p class="protocol" style="margin-top: 2.5rem;"><i></i> 点击购买行程表示已阅读并同意车票<span class="blue-text">预订协议</span>与<span class="blue-text">保障协议</span></p> -->
+						<a class="buy" href="#javascript" id="express-next">下一步</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 选择乘车人数 -->
+			<div class="carPeople"></div>
+			<div class="carPeople-tanc">
+				<h4>请选择乘车人数</h4>
+				<p>1</p>
+				<p>2</p>
+				<p>3</p>
+				<p>4</p>
+			</div>
+
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" style="display: none;">
+				<!-- 请选择出发地 -->
+			</div>
+
+			<!-- 个人中心 -->
+			<div class="myself-box">
+				<div class="myself">
+					<span class="touxiang">
+						<img class="userpic" id="myselfHeadimg" src="../images/logox.png">
+					</span>
+					<h3 class="name" id="userName">Aaron</h3>
+					<p class="chuxcs"><i class="chux-icon"></i>出行次数：<input class="chuxNum" type="text" name="" id="totaltripnums"
+						 value="" /></p>
+					<a href="myinfo.html" class="info" id="myinfo">
+						<span class="info-icon"><img src="../images/userpeople.png"></span>我的资料
+					</a>
+					<a href="mywallet.html" class="info"><span class="info-icon"><img src="../images/wallet.png"></span> 我的钱包</a>
+					<a href="myjournery.html" style="display: none;" class="info">
+						<span class="info-icon"><img src="../images/xingc.png"></span>我的行程
+					</a>
+					<!-- <a href="set.html" class="info"><span class="info-icon"><img src="../images/shezhi.png" ></span> 设置</a> -->
+					<a href="express_order.html" class="info">
+						<span class="info-icon"><img src="../images/dingdan.png" ></span> 快运订单
+					</a>
+					<a href="tousuList.html" class="info">
+						<span class="info-icon"><img src="../images/tousu.png" ></span>  投诉与建议
+					</a>
+
+					<!-- <div id="exitLogin">退出登录</div> -->
+					<p class="footer">山西汽运集团运城汽车运输有限公司</p>
+				</div>
+			</div>
+
+		</div>
+		<!-- <div class="orderdw" id="orderdw">
+			<img src="../images/dingwei.png">
+		</div> -->
+		<script src="../js/index_index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/lCalendar.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var calendardatetime = new lCalendar();
+			calendardatetime.init({
+				'trigger': '#demo2',
+				'type': 'time'
+			});
+			var calendartime = new lCalendar();
+			calendartime.init({
+				'trigger': '#demo3',
+				'type': 'time'
+			});
+			// login 接口
+			// $.ajax({
+			// 	type: "POST", //用POST方式传输
+			// 	dataType: "JSON", //数据格式:JSON 
+			// 	url: publicjs + '/app/passenger/login', //目标地址   验证码接口
+			// 	data: {
+			// 		phone: "18234556154",
+			// 		password: "123456"
+			// 	},
+			// 	success: function(res) {
+			// 		console.log(res)
+			// 		$(".userpic").attr("src", res.body.userPic);
+			// 		$("#userName").text(res.body.userName);
+			// 		var jony = res.body
+			// 		jony = JSON.stringify(jony)
+			// 		// console.log(jony)
+			// 		localStorage.setItem("name", jony)		
+			// 	},
+			// 	error: function(res) {
+			// 		console.log(res)
+			// 	}
+			// });
+		</script>
+	</body>
+</html>

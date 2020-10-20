@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="../css/verification_code.css"/>
+
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="banner">
+			<h3 class="title">验证码登录</h3>
+			<div class="inputbox">
+				<div class="inputbox-group">
+					<span class="xuanze" id="xuanze">+86</span>
+					<input class="mess" type="tel" maxlength="11" name="" id="utel" value="" placeholder="请输入您的手机号"/>
+				</div>
+				<div class="inputbox-group">
+					<input style="width: 35vw;" class="mess" id="code"  type="number" oninput="if(value.length>4)value=value.slice(0,4)" value="" placeholder="请输入验证码"/>
+					<input style="border: none;" class="verCode close_tel" type="button" id="addSendCode" value="验证码"/>
+				</div>
+				<p class="read">
+					<input class="checked" type="checkbox" name="" id="checkbox-id" value="" />
+					我已阅读<a href="http://updata.byqckj.com/jyyhxy.html" class="lianjie">《用户协议》</a>
+				</p>
+				<div class="tijiaobtn" id="updateBtn" style="background: #51BDFF;display: none;">登录</div>
+				<div class="tijiaobtn" id="updateBtnNo">登录</div>
+			</div>
+		</div>
+		<div id="tishimodal" class="tishimodal" style="display: none;">
+			<div class="empty-div closemodal"></div>
+			<div class="tishibox">
+				<div id="tishitit">提示信息</div>
+				<div id="tishibtn" class="closemodal">我知道了</div>
+			</div>
+		</div>
+		
+		<!-- 选择 -->
+		<div class="xuanze-bigbox">
+			<div class="white-box">
+				<p class="xuanze-text" id="china-text">中国
+					<span id="china">+86</span>
+				</p>
+				<p class="xuanze-text" id="hongkong-text">香港
+					<span id="hong-kong">+852</span>
+				</p>
+			</div>
+		</div>
+		<script src="../js/verification_code.js" type="text/javascript" charset="utf-8"></script>
+		
+	</body>
+</html>

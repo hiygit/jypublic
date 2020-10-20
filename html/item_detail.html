@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>运送物品详情</title>
+	<link rel="stylesheet" type="text/css" href="../css/item_detail.css"/>
+	<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<!-- 选择物品类型 -->
+	<div class="itemType">
+		<p>
+			选择物品类型
+			<span>不可寄物品说明</span>
+		</p>
+		<ul id="itemTypeul">
+			<!-- <li>
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li>
+			<li>
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li>
+			<li>
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li>
+			<li style="margin-bottom: 0;">
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li>
+			<li style="margin-bottom: 0;">
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li>
+			<li style="margin-bottom: 0;">
+				<div class="itemType-listBox">
+					<img src="../images/riyong.png">
+					<img class="checkedBtn" src="../images/checked.png" >
+				</div>
+				<span class="itemName">日用品</span>
+			</li> -->
+		</ul>
+	</div>
+	<!-- 选择物品大小 -->
+	<div class="itemType">
+		<p>
+			选择物品大小
+		</p>
+		<ul class="itemSize" id="itemSizeul">
+			<!-- <li class="active">小件物品</li>
+			<li>中件物品</li>
+			<li>大件物品</li>
+			<li>多件物品</li> -->
+		</ul>
+		<span class="notice"><i></i> 注意: 小件物品为长宽高均为30cm的物品</span>
+	</div>
+	<!-- 选择物品重量 -->
+	<div class="itemType">
+		<p>
+			选择物品重量
+		</p>
+		<ul class="itemSize" id="itemWeightul">
+			<!-- <li class="active">0-5公斤</li>
+			<li>5-10公斤</li>
+			<li style="margin-right: 0">10-15公斤</li>
+			<li style="margin-top: 0;">15公斤以上</li> -->
+		</ul>
+	</div>
+	<!-- 选择付款方式 -->
+	<div class="itemType" style="padding-bottom: 3rem;">
+		<p>
+			选择付款方式
+		</p>
+		<ul class="tl_sqxq" style="padding: 0.5rem 0;">
+			<li class="tl_input">
+				<div class="button-holder">
+					<input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" value="0">
+					<label for="radio-1-1" class="labels"></label>
+					寄付
+					
+					<input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio" value="1">
+					<label for="radio-1-2" class="labels" style="margin-left: 100px"></label>
+					到付
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="sureBox">
+		<span class="sure">确定</span>
+	</div>
+	
+	<!-- 成功下单 弹窗 -->
+	<div class="cancelOrder-body">
+		<div class="cancelOrder-box">
+			<p class="cancelOrder-title">成功下单</p>
+			<p class="cancelOreder-hint" id="cancelOreder-hint"><!-- 当前订单还未派车成功，您可以免费取消订单，确认要取消当前订单吗？ --></p> 
+			<span id="winsure">确认</span>
+		</div>			
+	</div>
+	<!-- 提示框 -->
+	<div id="tishimodal" class="tishimodal" style="display: none;">
+		<!-- 请选择出发地 -->
+	</div>
+	
+	<script src="../js/item_detail.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+a{
+	display: block;
+	text-decoration: none;
+}
+.banner{
+	width: 100vw;
+	height: 100vh;
+	padding: 0.8rem 0.8rem; 
+	padding-bottom: 0;
+	background: #F8F7F7;
+}
+.header-driver{
+	border-radius: 0.3rem;
+	background: #fff;
+	box-shadow: 0px 2px 2px #E5E8F3;
+}
+.driver-box{
+	font-size: 0.7rem;
+	padding: 0.8rem 0.8rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.driver-head{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	float: left;
+	margin-right: 0.5rem;
+	background: #277AEC;
+	border-radius: 50%;
+}
+.driver-head img{
+	width: 100%;
+	height: 100%;
+}
+.driver-info{
+	width: 80%;
+	float: right;
+}
+.jialing{
+	color: #B5B5B5;
+	font-size: 0.6rem;
+	margin-left: .5rem;
+}
+.carNum{
+	display: inline-block;
+	width: 4.2rem;
+	color: #277AEC;
+	font-size: 0.65rem;
+}
+.carName{
+	color: #666;
+	font-size: 0.65rem;
+	margin-left: 0.5rem;
+}
+
+.pj-content{
+	width: 100%;
+	padding: 1rem 0.8rem;
+}
+.xing-box{
+	display: flex;
+	width: 55%;
+	margin: 0 auto;
+	margin-bottom: 1.3rem;
+	/* background: #333; */
+}
+.xing-box span{
+	width: 1.2rem;
+	height: 1.2rem;
+	margin-left: 0.25rem;
+	background: url(../images/xingx.png) no-repeat;
+	background-size: 100% 100%;
+}
+.xing-box span.on{
+	background: url(../images/lanxing.png) no-repeat;
+	background-size: 100% 100%;
+}
+.pj-box{
+	padding: 0.5rem;
+    border: 2px solid #DBE2FF;
+	border-radius: 0.3rem;
+}
+textarea{
+	width: 100%;
+	height: 5rem;
+	font-size: 0.75rem;
+	border: none;
+	resize: none;
+	outline: none;  
+	background: ;
+}
+.textTotal{
+	display: block;
+	color: #999;	
+	font-size: 0.75rem;
+	text-align: right;
+}
+.baocun{
+	width: 100%;
+	color: #fff;
+	font-size: 0.75rem;
+	text-align: center;
+	line-height: 2rem;
+	letter-spacing: 0.5rem;
+	position: absolute;
+	bottom: 0;left: 0;
+	background: -webkit-linear-gradient(left,#5672E2,#5131D0);
+}
+
+/* phone-icon */
+.phone-icon{
+	width: 2rem;
+	height: 2rem;
+	float: right;
+	margin-top: -1.8rem;
+	/* background: #277AEC; */
+	border-radius: 50%;
+}
+.phone-icon img{
+	width: 100%;
+	height: 100%;
+}
+
+/* 提示框 */
+.tishimodal{
+	width: 40%;
+	color: #277AEC;
+	font-size: 0.7rem;
+	text-align: center;
+	line-height: 1.5rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 1px solid #277AEC;
+	border-radius: 0.3rem;
+	background: #fff;
+	z-index: 10;
+}

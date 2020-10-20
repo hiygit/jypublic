@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/positionPicker.html -->
+		<!-- <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" /> -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>小件快运详细地址</title>
+		<link rel="stylesheet" type="text/css" href="../css/detailed_address.css" />
+		<style type="text/css">
+			input[disabled],input:disabled,input.disabled{
+				color: #999;
+				-webkit-text-fill-color: #999;
+				-webkit-opacity:1;
+				opacity: 1;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="container" class="map" tabindex="0"></div>
+
+		<p class="orderRange">下单范围 <img src="../images/xdfw.png"></p>
+		<div class="dingwei-box">
+			<p class="dingwei-top"><i class="dian"></i>
+				<input type="text" style="background: none;" id="placeholder" value="请选择详细寄货地址" placeholder="" disabled="" />
+			</p>
+			<p id="jumpBox" class="dingwei-top" style="border-bottom: none;">
+				<i class="dian" style="background: #F5406B;"></i>
+				<input type="text" class="jump" id="address-ipt" style="-webkit-text-fill-color: #999;" value="" placeholder="" readonly />
+			</p>
+		</div>
+		<div class="button-group">
+			<input type="button" class="button" value="地图编辑完成" onClick="closeEditPolygon();" />
+		</div>
+		<div class="surestart" id="surestart">确定</div>
+		<div class="surestart" style="background: #E6E6E6;display: none;" id="hidesure">确定出发</div>
+
+		<div id='right'>
+			<div>
+				<!-- <div class='title'>选择模式</div> -->
+				<input type='hidden' name='mode' value='dragMap' checked>
+				<!-- 拖拽地图模式 -->
+				</input>
+				</br>
+				<input type='hidden' name='mode' value='dragMarker'>
+				<!-- 拖拽Marker模式 -->
+				</input>
+			</div>
+			<div>
+				<button id='start' hidden="hidden">开始选点</button>
+				<button id='stop' hidden="hidden">关闭选点</button>
+			</div>
+			<div>
+				<!-- <div class='title'>选址结果</div> -->
+				<!-- <div class='c'>经纬度:</div> -->
+				<div id='longitude'></div>
+				<div id='latitude'></div>
+				<div id='endlongitude'></div>
+				<div id='endlatitude'></div>
+				<!-- <div class='c'>地址:</div> -->
+				<!-- <div id='address'></div>
+				<div id='lastaddress'></div> -->
+				<!-- <div class='c'>最近的路口:</div> -->
+				<div id='nearestJunction' hidden="hidden"></div>
+				<!-- <div class='c'>最近的路:</div> -->
+				<div id='nearestRoad' hidden="hidden"></div>
+				<!-- <div class='c'>最近的POI:</div> -->
+				<div id='nearestPOI' hidden="hidden"></div>
+			</div>
+
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" hidden>
+				<!-- 请选择具体的目的地 -->
+			</div>
+		</div>
+
+		<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.ToolBar'></script>
+		<!-- UI组件库 1.0 -->
+		<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/express_detailed_address.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var listArray = JSON.parse(localStorage.getItem("listArray"));  //经纬度缓存
+			console.log(listArray)
+			var cache = JSON.parse(localStorage.getItem("getCache"))  // 获取express_detailed_address_address.html页面的缓存
+			console.log(cache)
+			var twoText = decodeURI(window.location.search) 
+			// console.log(twoText)
+			var expressmap = twoText.split("=")[3]
+			console.log(expressmap)
+			var oCityname = twoText.split("=")[2]
+			console.log(oCityname)
+			var types = twoText.split("=")[1].split("&")[0];   // 1
+			console.log(types)
+			$("#jumpBox").click(function(){
+				if (types == 1) {
+					$("#placeholder").val("请选择详细寄货地址")
+					location.href = "express_detailed_address_address.html?types=" + types + "&oCityname=" + oCityname 
+				} else if(types == "0"){
+					$("#placeholder").val("请选择详细收货地址")
+					location.href = "express_detailed_address_address.html?types=" + types + "&oCityname=" + oCityname 
+				}
+			})
+			var place = 0
+			AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
+				var map = new AMap.Map('container', {
+					zoom: 16,
+					scrollWheel: true,  //鼠标滚轮缩放地图
+					draggable: true,
+				})
+				var positionPicker = new PositionPicker({
+					mode: 'dragMap',
+					map: map,
+				});
+				// 地理围栏
+				var polygonArr = listArray;
+				// 				var polygonArr = [
+				// 					[116.403322, 39.920255],
+				// 					[116.410703, 39.897555],
+				// 					[116.402292, 39.892353],
+				// 					[116.389846, 39.891365]
+				// 				];
+				var polygon = new AMap.Polygon({
+					map: map,
+					path: polygonArr, //设置多边形边界路径
+					strokeColor: "#FF33FF", //线颜色
+					strokeOpacity: 0.2, //线透明度
+					strokeWeight: 3, //线宽
+					fillColor: "#1791fc", //填充色
+					fillOpacity: 0.35 //填充透明度
+				});
+				map.setFitView();
+				
+				positionPicker.on('success', function(positionResult) {
+					console.log(positionResult)
+					var startAddressLat = cache.startAddress.startAddressLat
+					var startAddressLng = cache.startAddress.startAddressLng
+					var endAddressLat = cache.endAddress.endAddressLat
+					var endAddressLng = cache.endAddress.endAddressLng
+					// console.log(startAddressLat,startAddressLng)
+					// console.log(endAddressLat,endAddressLng)
+					if (place == 0) {
+						var ALon = positionResult.position.lng;
+						var ALat = positionResult.position.lat;
+						var APoints = polygonArr
+						// console.log(APoints)
+						var iSum = 0,
+							iCount;
+						var dLon1, dLon2, dLat1, dLat2, dLon;
+						if (APoints.length < 3) return false;
+						iCount = APoints.length;
+						for (var i = 0; i < iCount; i++) {
+							if (i == iCount - 1) {
+								dLon1 = APoints[i].lng;
+								dLat1 = APoints[i].lat;
+								dLon2 = APoints[0].lng;
+								dLat2 = APoints[0].lat;
+							} else {
+								dLon1 = APoints[i].lng;
+								dLat1 = APoints[i].lat;
+								dLon2 = APoints[i + 1].lng;
+								dLat2 = APoints[i + 1].lat;
+							}
+							//以下语句判断A点是否在边的两端点的水平平行线之间，在则可能有交点，开始判断交点是否在左射线上
+							if (((ALat >= dLat1) && (ALat < dLat2)) || ((ALat >= dLat2) && (ALat < dLat1))) {
+								if (Math.abs(dLat1 - dLat2) > 0) {
+									//得到 A点向左射线与边的交点的x坐标：
+									dLon = dLon1 - ((dLon1 - dLon2) * (dLat1 - ALat)) / (dLat1 - dLat2);
+									if (dLon < ALon)
+										iSum++;
+								}
+							}
+						}
+						//判断是否在电子围栏范围内
+						if (iSum % 2 != 0) {
+							document.getElementById('longitude').innerHTML = positionResult.position;
+							document.getElementById('latitude').innerHTML = positionResult.position;
+							document.getElementById('address-ipt').value = positionResult.address;
+							// document.getElementById('address-ipt').value = twoText==""?positionResult.address:cache.startAddress.districtAddress;
+							document.getElementById('nearestJunction').innerHTML = positionResult.nearestJunction;
+							document.getElementById('nearestRoad').innerHTML = positionResult.nearestRoad;
+							document.getElementById('nearestPOI').innerHTML = positionResult.nearestPOI;
+						} else {
+							document.getElementById('longitude').innerHTML = "";
+							document.getElementById('latitude').innerHTML = "";
+							document.getElementById('address-ipt').value = "";
+							document.getElementById('nearestJunction').innerHTML = "";
+							document.getElementById('nearestRoad').innerHTML = "";
+							document.getElementById('nearestPOI').innerHTML = "";
+							// console.log("rr528353rr")
+							$("#tishimodal").show()
+							$("#tishimodal").html("不在电子围栏范围内")
+							setTimeout(function() {
+								$("#tishimodal").hide()
+							}, 2000)
+						}
+					} else {
+						document.getElementById('endlongitude').innerHTML = positionResult.position;
+						document.getElementById('endlatitude').innerHTML = positionResult.position;
+						document.getElementById('address-ipt').value = positionResult.address;
+						document.getElementById('nearestJunction').innerHTML = positionResult.nearestJunction;
+						document.getElementById('nearestRoad').innerHTML = positionResult.nearestRoad;
+						document.getElementById('nearestPOI').innerHTML = positionResult.nearestPOI;	
+					}
+					// console.log(positionResult.position)
+					// console.log(positionResult.address)
+				});
+				positionPicker.on('fail', function(positionResult) {
+					document.getElementById('longitude').innerHTML = ' ';
+					document.getElementById('latitude').innerHTML = ' ';
+					document.getElementById('endlongitude').innerHTML = ' ';
+					document.getElementById('endlatitude').innerHTML = ' ';
+					document.getElementById('address-ipt').value = ' ';
+					document.getElementById('lastaddress-ipt').value = ' ';
+					document.getElementById('nearestJunction').innerHTML = ' ';
+					document.getElementById('nearestRoad').innerHTML = ' ';
+					document.getElementById('nearestPOI').innerHTML = ' ';
+				});
+				var onModeChange = function(e) {
+					positionPicker.setMode(e.target.value)
+				}
+				var startButton = document.getElementById('start');
+				var stopButton = document.getElementById('stop');
+				var dragMapMode = document.getElementsByName('mode')[0];
+				var dragMarkerMode = document.getElementsByName('mode')[1];
+				AMap.event.addDomListener(startButton, 'click', function() {
+					positionPicker.start(map.getBounds().getSouthWest())
+				})
+				AMap.event.addDomListener(stopButton, 'click', function() {
+					positionPicker.stop();
+				})
+				AMap.event.addDomListener(dragMapMode, 'change', onModeChange)
+				AMap.event.addDomListener(dragMarkerMode, 'change', onModeChange);
+				positionPicker.start();
+				//地图移动到寄货或收货地址
+				var lonandlat = [];
+				if (types == 1) {
+					lonandlat[0] = cache.startAddress.startAddressLng;
+					lonandlat[1] = cache.startAddress.startAddressLat;
+				} else if(types == "0"){
+					lonandlat[0] = cache.endAddress.endAddressLng;
+					lonandlat[1] = cache.endAddress.endAddressLat;
+				}
+				map.panTo(lonandlat);//地图移动
+
+				map.addControl(new AMap.ToolBar({
+					liteStyle: true
+				}))         
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>订单详情</title>
+		<link rel="stylesheet" type="text/css" href="../css/express_order_detail.css"/>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			/*等待派車動畫*/
+			#waiting{
+				width: 100% ;
+				color: #fff !important;
+				background: -webkit-linear-gradient(left,#577CE6,#5132D0);
+				bottom: 0;
+			}
+			.waitingbox{
+				width: 100% ;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.homeMark {
+				/* width: 100%; */
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+			
+			.homeMark span {
+				width: 0.9vh;
+				height: 0.9vh;
+				background-color: #fff;
+				border-radius: 50%;
+				margin-left: 0.6vh;
+			}
+			
+			.homeMark span {
+				animation: breathe 0.7s ease-in-out infinite alternate;
+				-webkit-animation: breathe 0.7s ease-in-out infinite alternate;
+				-moz-animation: breathe 0.7s ease-in-out infinite alternate;
+				-o-animation: breathe 0.7s ease-in-out infinite alternate;
+			}
+			
+			.homeMark span:nth-of-type(1) {
+				opacity: 0.2;
+				filter: alpha(opacity=20);
+				-animation-delay: 100ms;
+				-webkit-animation-delay: 100ms;
+				-moz-animation-delay: 100ms;
+				-o-animation-delay: 100ms;
+			}
+			
+			.homeMark span:nth-of-type(2) {
+				opacity: 0.1;
+				filter: alpha(opacity=10);
+				-animation-delay: 300ms;
+				-webkit-animation-delay: 300ms;
+				-moz-animation-delay: 300ms;
+				-o-animation-delay: 300ms;
+			}
+			
+			.homeMark span:nth-of-type(3) {
+				opacity: 0;
+				filter: alpha(opacity=0);
+				-animation-delay: 500ms;
+				-webkit-animation-delay: 500ms;
+				-moz-animation-delay: 500ms;
+				-o-animation-delay: 500ms;
+			}
+			
+			@keyframes breathe {
+				0% {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+			
+				100% {
+					opacity: 1;
+					filter: alpha(opacity=1);
+				}
+			}
+			
+			@-webkit-keyframes breathe {
+				0% {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+			
+				100% {
+					opacity: 1;
+					filter: alpha(opacity=1);
+				}
+			}
+			
+			@-moz-keyframes breathe {
+				0% {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+			
+				100% {
+					opacity: 1;
+					filter: alpha(opacity=1);
+				}
+			}
+			
+			@-o-keyframes breathe {
+				0% {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+			
+				100% {
+					opacity: 1;
+					filter: alpha(opacity=1);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div class="content-top" id="contact-service">
+				<div class="waiting-contact">
+					<img src="../images/dingdan.png" >
+				</div>
+				<div class="waiting-contact-text">
+					请等待客服人员与您联系，商议价格付款后将给您派车!
+				</div>
+			</div>
+			<!-- 合计 -->
+			<div class="content-top" style="display: none;" id="top-totalprice">
+				<div class="waiting-contact">
+					<img src="../images/dingdan.png" >
+				</div>
+				<div class="waiting-contact-text" style="text-align: right;line-height: 2rem;">
+					合计: <span id="top-payprice" style="color: #2B7CEC;"></span>
+				</div>
+			</div>
+			<!-- 支付成功 -->
+			<div class="content-top" id="content-top-pay" style="display: none;">
+				<div class="waiting-contact">
+					<img src="../images/dingdan.png" >
+				</div>
+				<div class="waiting-contact-text" style="line-height: 2rem;">
+					合计: <span id="waiting-contact-top-payprice" style="color: #2B7CEC;"> <!-- 0.01元 --> </span>
+					<span id="headerPayWay" style="color: #2B7CEC;line-height: 2rem;float: right;"> 支付成功 </span>
+				</div>
+			</div>
+			<!-- 司机信息 -->
+			<div class="driver-box" style="display: none;">
+				<span class="driver-head"><img id="driver-head" src="../images/logox.png" ></span>
+				<p class="driver-info">
+					<div class="driInfo-top">
+						<span id="name" class="carNum">王师傅</span>
+						<span id="getgoods" class="jialing">未取上货</span>
+					</div>
+					<div class="driInfo-top">
+						<span class="carNum" id="carno">晋AVL521</span>
+						<span class="carName" id="cartype">金色 · 吉利帝豪</span>
+					</div>
+				</p>
+				<a id="driverphone" class="phone-icon"><img src="../images/phoneicon.png" ></a>
+			</div>
+			
+			<div class="order-info-box">
+				<ul>
+					<li>
+						收件人姓名
+						<span id="consigneeName">xx</span>
+					</li>
+					<li>
+						寄件地址
+						<span id="mailingDetailAddress">万柏林区千锋街道迎泽西大街街心公园</span>
+					</li>
+					<li>
+						收件地址
+						<span id="consigneeDetailAddress">阳曲县中心镇建设管理办公室信仰东街20号</span>
+					</li>
+					<li>
+						付款方式
+						<span id="consigneePay"></span>
+					</li>
+					<li>
+						订单号
+						<span id="orderNumber">1555251511151</span>
+					</li>
+					<li>
+						创建时间
+						<span id="createDate">2019-09-19 09:52:10</span>
+					</li>
+					<li>
+						商品规格
+						<span id="itemSize">小件物品</span>
+					</li>
+					<li>
+						商品重量
+						<span id="itemWeight">0-5公斤</span>
+					</li>
+					<li>
+						商品类型
+						<span id="itemType">日用品</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="total-box" style="display: none;">
+			合计
+			<div class="price-box">
+				<input id="bottom-totalinput" type="number" name="" id="sum" value="" placeholder="" readonly /><i style="font-style: normal;">元 (已付款)</i>
+			</div>
+		</div>
+		
+		<!-- 评价 -->
+		<div class="pj-bigbox" hidden="hidden">
+			<p>评价：
+				<span class="xx-box">
+					<!-- <img src="../images/lanxing.png" >
+					<img src="../images/lanxing.png" >
+					<img src="../images/lanxing.png" >
+					<img src="../images/lanxing.png" >
+					<img src="../images/xingx.png" > -->
+				</span>
+			</p>
+			<p class="pj-text">
+				司机的服务态度很好！准时到到达出发地，下次还会选择遮掩的出行方式。
+			</p>
+		</div>
+		
+		<div class="order" id="order"> 取消订单 </div>
+		<div class="order refresh" id="refresh"> 刷新订单 </div>
+		<div class="order refresh" id="payment"> 立即付款 </div>		
+		<!-- <div class="order refresh" id="waiting"> 等待派车 </div> -->
+		<div class="order" id="waiting">
+			<div class="waitingbox" style="display: none;">
+				<span id="wait">等待派车</span>
+				<div class="homeMark"><span></span><span></span><span></span></div> 
+			</div>
+		</div>
+		<div class="order refresh" id="position"> 查看司机位置 </div>
+		<div class="order refresh" id="express-evaluate"> 去评价 </div>
+		
+		<!-- 取消订单 弹窗 -->
+		<div class="cancelOrder-body">
+			<div class="cancelOrder-box">
+				<p class="cancelOrder-title">取消订单</p>
+				<p class="cancelOreder-hint" id="cancelOreder-hint"><!-- 当前订单还未派车成功，您可以免费取消订单，确认要取消当前订单吗？ --></p> 
+				<span class="winsure" id="orderno">取消</span> 
+				<span class="winsure" id="ordersure" style="background: #277AEC;color: #fff;">确认</span>
+			</div>			
+		</div>
+		
+		<!-- 提示框 -->
+		<div id="tishimodal" class="tishimodal" style="display: none;">
+			<!-- 请选择出发地 -->
+		</div>
+		<script src="../js/express_order_detail.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

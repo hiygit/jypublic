@@ -1,0 +1,103 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{
+	position: relative;
+}
+a{
+	display: block;
+	text-decoration: none;
+}
+.banner{
+	width: 100vw;
+	background: #F9F9F9;
+}
+.uppercase{
+	color: #373737;
+	font-weight: 400;
+	font-size: 0.7rem;
+	padding: 0.2rem 1rem;
+	display: none;
+}
+.city-box{
+	width: 100%;
+	color: #434343;
+	padding: 0 1rem;
+	background: #fff;
+}
+.city-txt{
+	width: 100%;
+	color: #373737;
+	font-size: 0.8rem;
+	line-height: 2rem;	
+	border-bottom: 1px solid #f0f0f0;
+}
+/* .city-box .city-txt:last-child{
+	border-bottom: none;
+} */
+
+
+/* 字母定位 */
+.uppercase-posi{
+	width: 1rem;
+	position: fixed;
+	right: 0rem;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+}
+.uppercase-right{
+	color: #0355FF;
+	font-size: 0.6rem;
+}
+
+/* 寄件方式弹窗 */
+.pop-up-bj{
+	width: 100vw;
+	/* height: 100%; */
+	height: 100vh; 
+	background: rgba(0,0,0,0.2);
+	/* position: absolute; */
+	position: fixed;
+	top: 0;
+	left: 0;
+	/* display: none; */
+}
+.pop-up{
+	display: block;
+	width: 60%;
+	height: 11rem;
+	position: fixed;
+	top: 33%;
+	left: 50%;
+	transform: translate(-50%);
+}
+.sendWayBox{
+	width: 60%;
+	color: #2F7EED;
+	font-size: 0.8rem;
+	text-align: center;
+	padding: 1rem;
+	position: fixed;
+	top: 49%;
+	left: 50%;
+	transform: translate(-50%);
+}
+.sendType{
+	width: 100%;
+	margin-top: 0.8rem;
+	display: flex;
+	justify-content: space-around;s
+}
+.sendWayBox span{
+	display: inline-block;
+	width: 47%;
+	color: #fff;
+	font-size: 0.75rem;
+	line-height: 1.7rem;
+	background: #FE9F1C;
+	border-radius: 50px;
+}
+

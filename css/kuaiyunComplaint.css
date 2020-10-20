@@ -1,0 +1,146 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	background: #FAFAFA;
+}
+li{
+	list-style: none;
+}
+input {
+	outline: none;
+	border: none;
+	background: none;
+	/* -webkit-appearance:none; */
+} 
+input[disabled],input:disabled,input.disabled{
+	color: #B1B1B1;
+	-webkit-text-fill-color: #B1B1B1;
+	-webkit-opacity:1;
+	opacity: 1;
+}
+input::-webkit-input-placeholder{
+　　coloc: #C2C2C2;　　//当然，其他样式也可以在这里修改
+}　
+h3{
+    display: block;
+    font-size: 0.8rem;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.wrap{
+	width: 100%;
+	height: 100%;
+	background: #FAFAFA;
+}
+.meetquestion{
+	width: 100%;
+	padding: 0.8rem;
+	margin-bottom: 0.5rem;
+	background: #fff;
+}
+.title{
+	color: #333333;
+	font-size: 0.8rem;
+}
+.asterisk{
+	color: red;
+}
+.questionlist{
+	width: 100%;
+	color: #333;
+	font-size: 0.8rem;
+}
+.buyBox-left li{
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 0;
+	position: relative;
+}
+.buyBox-left li:last-child{
+	padding-bottom: 0;
+}
+.buyBox-left li span{
+	margin-left: 0.8rem;
+}
+.iptText{
+	width: 100%;
+	color: #333;
+	font-size: 0.75rem;
+	padding: 0.4rem 0;
+	margin-top: 0.5rem;
+	border-bottom: 1px solid #F7F7F7;
+}
+/* 提交 */
+.submitBox{
+	width: 100%;
+	padding: 0.8rem 2rem;
+	background: #fff;
+}
+button{
+	outline: none;
+	border: none;
+	background: none;
+	width: 100%;
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	padding: 0.5rem;
+	border-radius: 50px;
+	background: -webkit-linear-gradient(left,#556EE1,#5131CF);
+}
+
+
+/* 客服图片 */
+.kefuimg{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	position: fixed;
+	top: 41%;
+	right: 0.8rem;
+}
+.kefuimg img{
+	width: 100%;
+	height: 100%;
+}
+
+
+/* css checkbox样式美化 */
+.iptChecked +label{
+	display: block;
+    width: 19px;
+    height: 19px;
+    cursor: pointer;
+	border-radius: 50%;
+	border: 1px solid #9C9C9C;
+    position: absolute;
+    /* top: 2px;
+    left: 15px;
+    background: rgba(240, 84, 77, 1);; */
+}
+ 
+.iptChecked:checked +label::before{
+    display: block;
+    content: "\2714";
+    text-align: center;
+	width: 19px;
+	height: 19px;
+    font-size: 15px;
+	line-height: 19px;
+    color: #fff;
+	margin-left: -1px;
+    margin-top: -1px;
+	background: #4827E8;
+	border-radius: 50%;
+}
+input[type=checkbox]{
+	visibility: hidden;
+}

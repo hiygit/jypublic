@@ -1,0 +1,179 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+html,
+body {
+	font-size: 14px;
+	background: #F9FAFA;
+	padding-top: 0.3rem;
+}
+header {
+	height: 40px;
+	width: 100%;
+	min-width: 320px;
+	background: #000;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	line-height: 40px;
+}
+/* footer {
+            height: 52px;
+            width: 100%;
+            min-width: 320px;
+            background: #000;
+            text-align: center;
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 52px;
+            position: absolute;
+            bottom: 0;
+        } */
+#wrapper {
+	width: 94%;
+	min-width: 320px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 40px;
+	bottom: 20px;
+	overflow: hidden;
+	z-index: 1;
+	/* background-color: #eee; */
+
+	/* 防止本机Windows上的触摸事件 */
+	-ms-touch-action: none;
+
+	/* 防止callout tap-hold和文本的选择 */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	/* 防止文本调整取向变化对web应用程序很有用 */
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+.pull-loading {
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#scroller ul li {
+	/* padding: 20px 10px; */
+	/* border-bottom: solid 1px #ccc; */
+	background: #fff;
+}
+
+#div1 div {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #FF0000;
+	display: none;
+}
+
+.active {
+	color: #277AEC;
+	/* background: red;*/
+	border-bottom: 1px solid #277AEC;
+}
+
+.tab {
+	display: -webkit-flex;
+	display: flex;
+	width: 95%;
+	color: #666;
+	font-size: 0.75rem;
+	margin-top: 0.5rem;
+	margin: 0 auto;
+	border-bottom: 1px solid #ccc;
+	background: #fff;
+}
+
+.tab:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.tab li {
+	width: 33.3%;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+	list-style: none;
+	float: left;
+	margin: 0 10px;
+}
+
+.tab li.active {
+	/* background: #000; */
+	color: #277AEC;
+}
+
+.order-bigbox {
+	margin-top: 0.3rem;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+
+.order-box {
+	color: #666;
+	padding: 0.5rem 0.8rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.going {
+	/*进行中*/
+	float: right;
+	color: #277AEC;
+	font-size: 0.75rem;
+}
+
+
+.yjl {
+	width: 0.3rem;
+	margin-left: 0.25rem;
+}
+
+.weizhi {
+	width: 0.6rem;
+    height: 0.8rem;
+    position: relative;
+    top: 2px;
+    margin-right: 8px;
+}
+
+.cityt {
+	color: #676767;
+	font-size: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.time {
+	color: #A5A5A5;
+}
+
+.time-icon {
+	width: 0.75rem;
+	height: 0.75rem;
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	margin-top: 0.25rem;
+}
+

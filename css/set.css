@@ -1,0 +1,40 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{	
+	width: 100vw;
+	height: 100vh;
+	font-size: 16px;
+}
+.banner{
+	width: 100vw;
+	height: 100vh;	
+	padding: 0.5rem;
+	background: #F9FAFA;
+}
+.set-box{
+	color: #333;
+	font-size: 0.75rem;
+	padding: 0.6rem;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.set-box img{
+	width: 0.5rem;
+	float: right;
+}
+.exit{
+	width: 80%;
+	color: #fff;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	line-height: 2.3rem;
+	position: absolute;
+	bottom: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	background: -webkit-linear-gradient(left,#556EE1,#5131CF);
+	border-radius: 50px;
+}

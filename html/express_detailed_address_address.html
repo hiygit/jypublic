@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/index.html -->
+		<!-- <base href="http://webapi.amap.com/ui/1.0/ui/misc/PoiPicker/examples/" /> -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>详细地址</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,
+			body,
+			#container {
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				font-size: 13px;
+			}
+			#pickerBox {
+				position: absolute;
+				z-index: 9999;
+				top: 10px;
+				left: 0;
+				width: 100vw;
+				border-bottom: 1px solid #ccc;
+				padding: 0 2rem;
+				box-sizing: border-box;
+				line-height: 2rem;
+			}
+			#pickerInput {
+				width: 200px;
+				padding: 5px 5px;
+			}
+			#poiInfo {
+				background: #fff;
+			}
+			.amap_lib_placeSearch .poibox.highlight {
+				background-color: #CAE1FF;
+			}
+			.amap_lib_placeSearch .poi-more,.amap-logo,.amap-copyright,.amap_lib_placeSearch,.amap-info-contentContainer {
+				display: none!important;
+			}
+			.amap-ui-poi-picker-sugg-container{
+				max-height: 100vh !important;
+				width: 100vw !important;
+				left: 0 !important;
+				border: none !important;
+			}
+			.amap-ui-poi-picker-sugg-list .sugg-item{
+				padding: 10px 10px 10px 27px !important;
+				/* background: url(http://webapi.amap.com/ui/1.0/ui/misc/PoiPicker/assets/search.png) no-repeat 11px 50% !important; */
+			}
+			.amap-ui-poi-picker-sugg-list .sugg-address {
+				display: inline-block !important;
+				color: #999 !important;
+				font-size: 90% !important;
+			}
+			.amap-ui-poi-picker-sugg-list .sugg-item.sugg-no-id {
+				background: url(http://webapi.amap.com/ui/1.0/ui/misc/PoiPicker/assets/search.png) no-repeat 5px 50%;
+				display: none !important;
+			}
+			.amap-ui-poi-picker-sugg-container{
+				top: 27px !important;
+			}
+			#cancel {
+				float: right;
+			}
+			input {
+				display: inline-block;
+				width: 59% !important;
+				margin-left: 1rem;
+				outline: none;
+				border: none;
+				background: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container" class="map" tabindex="0" style="display: none;"></div>
+		<div id="pickerBox">
+			<span id="citys"></span>
+			<input id="pickerInput" placeholder="请输入地址关键字搜索" />
+			<span id="cancel">取消</span>
+			<div id="poiInfo"></div>
+		</div>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src='http://webapi.amap.com/maps?v=1.4.9&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.PlaceSearch'></script>
+		<!-- UI组件库 1.0 -->
+		<script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script type="text/javascript">
+			var getCache = localStorage.getItem("getCache")
+			console.log(getCache)
+			var twoText = decodeURI(window.location.search);
+			var types = twoText.split("=")[1].split("&")[0]
+			var addresss= twoText.split("=")[2]
+			console.log(addresss)
+			console.log(types)
+			if(getCache == null || getCache == ''){
+				getCache = {
+					startAddress: {
+						name: "",
+						districtAddress: "",
+						startAddressLng: "",
+						startAddressLat: "",
+					},
+					endAddress: {
+						name: "",
+						districtAddress: "",
+						endAddressLng: "",
+						endAddressLat: "",
+					}
+				}
+			}else{
+				getCache = JSON.parse(getCache)
+			}	
+			var map = new AMap.Map('container', {
+				zoom: 10
+			});
+
+			AMapUI.loadUI(['misc/PoiPicker'], function(PoiPicker) {
+				var poiPicker = new PoiPicker({
+					city: addresss,
+					citylimit: false,
+					input: 'pickerInput'
+				});
+				//初始化poiPicker
+				poiPickerReady(poiPicker);
+			});
+			function poiPickerReady(poiPicker) {
+
+				window.poiPicker = poiPicker;
+
+				var marker = new AMap.Marker();
+
+				var infoWindow = new AMap.InfoWindow({
+					offset: new AMap.Pixel(0, -20)
+				});
+
+				//选取了某个POI
+				poiPicker.on('poiPicked', function(poiResult) {
+					<!-- var source = poiResult.source, -->
+					var poi = poiResult.item,
+						info = {
+							<!-- source: source, -->
+							<!-- id: poi.id, -->
+							name: poi.name,
+							<!-- location: poi.location.toString(), -->
+							<!-- address: poi.address -->
+						};
+						console.log(poi)
+						console.log(poi.location.lat)
+					if (types == 1) {
+						getCache.startAddress.name = poi.name
+						getCache.startAddress.districtAddress = poi.district+poi.address
+						getCache.startAddress.startAddressLng = poi.location.lng
+						getCache.startAddress.startAddressLat = poi.location.lat
+					} else if (types == 0){						
+						getCache.endAddress.name = poi.name
+						getCache.endAddress.districtAddress = poi.district+poi.address
+						getCache.endAddress.endAddressLng = poi.location.lng
+						getCache.endAddress.endAddressLat = poi.location.lat
+					}
+					var addressstr = JSON.stringify(getCache)
+					console.log(addressstr)
+					localStorage.setItem("getCache",addressstr)
+					location.href = "express_detailed_address.html?types=" + types + "&addresss=" + addresss
+					
+					marker.setMap(map);
+					infoWindow.setMap(map);
+					marker.setPosition(poi.location);
+					infoWindow.setPosition(poi.location);
+
+					infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+					infoWindow.open(map, marker.getPosition());
+
+					map.setCenter(marker.getPosition());
+				});
+
+				// poiPicker.onCityReady(function() {
+				//     poiPicker.suggest('美食');
+				// });
+
+				//取消按钮cancel
+				$("#cancel").click(function() {
+					location.href = "express_detailed_address.html"
+				})
+				var citys = $("#citys").text(addresss)
+				console.log(citys)
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,506 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{
+	font-size: 16px;	
+	position: relative;
+}
+input{
+	outline: none;
+	border: none;
+}
+.banner{
+	width: 100vw;
+	height: 100vh;
+	padding: 0.8rem 0.5rem;
+	padding-bottom: 0;
+	background: #F4F5F9;
+}
+.content{
+	width: 100%;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.content-top{
+	width: 100%;
+	padding: 0.8rem 0.5rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.user-icon{
+	display: inline-block;
+	width: 0.6rem;
+	height: 0.65rem;
+}
+
+.money-box{
+	letter-spacing: 0.1rem;
+}
+.money-box p{
+	text-align: center;
+}
+.money-box p strong{
+	font-size: 1.3rem;
+	font-weight: 400;
+}
+.zuowei{
+	width: 0.6rem;
+	height: 0.9rem;
+	vertical-align: middle;
+}
+.moneyPay-box{
+	margin-top: 1rem;
+}
+.pay-left{
+	display: inline-block;
+	width: 50%;
+	color: #9A9A9A;
+	font-size: 0.7rem;
+	text-align: center;
+}
+.moneygray-icon{
+	display: inline-block;
+	width: 0.75rem;
+	height: 0.65rem;
+}
+.content-bottom{
+	width: 100%;
+	padding: 0.8rem 0.5rem;
+}
+.lineCar{
+	color: #373737;
+	font-size: 0.75rem;
+}
+.city{
+	color: #666;
+}
+.lineCar input{
+	width: 40%;
+}
+.datetime{
+	float: right;
+	text-align: right;
+}
+.protocol{
+	color: #9D9D9D;
+	font-size: 0.6rem;
+	margin-top: 0.5rem;
+}
+.protocol i{
+	display: inline-block;
+	width: 0.25rem;
+	height: 0.25rem;
+	vertical-align: middle;
+	margin-top: -0.15rem;
+	margin-right: 0.2rem;
+	background: #44BE23;
+	border-radius: 50%;
+}
+.total-box{
+	width: 100%;
+	font-size: 0.75rem;
+	padding: 0.6rem 0.5rem;
+	margin-top: 0.5rem;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.price-box{
+	color: #277AEC;
+	float: right;
+}
+.total-box input{	
+	color: #277AEC;
+	text-align: right;
+}
+.payment{
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	line-height: 2.5rem;
+	letter-spacing: 0.1rem;
+	position: absolute;
+	bottom: 0;left: 0;
+	background: -webkit-linear-gradient(left,#556EE1,#5131CF);
+}
+.order{
+	color: #277AEC;
+	bottom: 2.8rem;
+	background: #fff;
+}
+
+/* 评价 */
+.pj-bigbox{
+	width: 100%;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	background: #fff;
+	border-radius: 0.3rem;
+	/* display: none; */
+}
+.xx-box{
+	float: right;
+}
+.xx-box img{
+	width: 1.2rem;
+	height: 1.2rem;
+}
+.pj-text{
+	color: #999999;
+	font-size: 0.75rem;
+	margin-top: 0.8rem;
+}
+.finish{
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	line-height: 2.5rem;
+	letter-spacing: 0.1rem;
+	position: absolute;
+	bottom: 0;left: 0;
+	background: #D5D5D5;
+	display: none;
+}
+
+/* 选择支付方式 */
+.check-box{
+	width: 100%;
+	padding: 2rem 1rem;
+	position: absolute;
+	bottom: 0;left: 0;
+	background: #fff;
+	display: none;
+}
+.check-box h5{
+	color: #277AEC;
+}
+.alipay{
+	width: 100%;
+	height: 2rem;
+	margin-top: 1rem;
+	/* background: rgba(0,0,0,.3); */
+} 
+.alipay-img{
+	width: 2rem;
+	height: 2rem;
+	float: left;
+	margin-right: 0.3rem;
+}
+.alipay-text{
+	display: block;
+	color: #666;
+	float: left;
+	line-height: 2rem;
+}
+.check-btn{
+	width: 0.8rem;
+	height: 0.8rem;
+	float: right;
+	margin-top: 0.6rem;
+	border-radius: 50%;
+	background: #fff;
+	border: 1px solid #999;
+	vertical-align: middle;
+
+}
+
+
+/* 支付金额 弹窗 */
+.zhifu-body{
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;left: 0;
+	background: rgba(0,0,0,.3);
+	display: none;
+}
+.zhifu-box{
+	width: 75%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	color: #666;
+	font-size: 0.5rem;
+	text-align: center;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.moneyNum-box{
+	line-height: 4.3rem;
+	border-bottom: 1px solid #f0f0f0;
+}
+.moneyNum{
+	width: 28%;
+	color: #3B3B3B;
+	font-size: 1rem;
+}
+.zhifu-btn{
+	display: block;
+	width: 3.5rem;
+	height: 1.3rem;
+	color: #89B4F4;
+	line-height: 1.3rem;
+	margin: 0 auto;
+	margin-top: -0.8rem;
+	border: 1px solid #89B4F4;
+	border-radius: 50px;
+	background: #fff;
+}
+.pswd{
+	height: 3.5rem;
+}
+.pswd input{
+	width: 0.8rem;
+	height: 0.8rem;
+	margin-top: 1.2rem;
+	border-radius: 50%;
+	border: 1px solid #277AEC;
+	background: #fff;
+}
+.fukuan{
+	color: #fff;
+	line-height: 2rem;
+	background: -webkit-linear-gradient(left,#556EE1,#5131CF);
+	border-bottom-left-radius: 0.3rem;
+	border-bottom-right-radius: 0.3rem;
+}
+
+/* 等待派车 查看司机位置 立即评价 代付款 */
+.waiting,
+.driAddress,
+.curposi,
+.immediate_eval,
+.daifukuan{
+	display: none;
+}
+
+
+
+/* 取消订单 弹窗*/
+.cancelOrder-body{
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;left: 0;
+	background: rgba(0,0,0,.3);
+	display: none;
+}
+.cancelOrder-box{
+	width: 75%;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #666;
+	font-size: 0.8rem;
+	text-align: center;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.cancelOrder-title{
+	line-height: 2.5rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.cancelOreder-hint{
+	height: 5.8rem;
+	font-size: 0.8rem;
+	line-height: 1rem;
+	padding: 1.35rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.quxiao{
+	display: block;
+	width: 50%;
+	float: left;
+	font-size: 0.8rem;
+	text-align: center;
+	line-height: 2rem;
+	background: #D5D5D5;
+	border-bottom-left-radius: 0.3rem;
+}
+.sure{
+	color: #fff;
+	background: #277AEC;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0.3rem;
+}
+
+
+/* 司机信息 */
+.driver-box{
+	font-size: 0.7rem;
+	padding: 0.8rem 0.8rem;
+	border-bottom: 1px solid #F0F0F0; 
+	/* display: none; */
+}
+.driver-head{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	float: left;
+	margin-right: 0.5rem;
+	background: #277AEC;
+	border-radius: 50%;
+}
+.driver-head img{
+	width: 100%;
+	height: 100%;
+}
+.driver-info{
+	width: 80%;
+	float: right;
+}
+.jialing{
+	color: #B5B5B5;
+	font-size: 0.6rem;
+	/* margin-left: 1rem; */
+}
+.carNum{
+	display: inline-block;
+	width: 4.5rem;
+	color: #277AEC;
+	font-size: 0.65rem;
+}
+.carName{
+	color: #666;
+	font-size: 0.65rem;
+	/* margin-left: 1.5rem; */
+}
+/* phone-icon */
+.phone-icon{
+	width: 2rem;
+	height: 2rem;
+	float: right;
+	margin-top: -1.8rem;
+	/* background: #277AEC; */
+	border-radius: 50%;
+}
+.phone-icon img{
+	width: 100%;
+	height: 100%;
+}
+
+/* 提示框 */
+.tishimodal{
+	width: 40%;
+	color: #277AEC;
+	font-size: 0.7rem;
+	text-align: center;
+	line-height: 1.5rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 1px solid #277AEC;
+	border-radius: 0.3rem;
+	background: #fff;
+	z-index: 10;
+}
+
+.same{
+	display: inline-block;
+	width: 4rem;
+}
+.waiting{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.homeMark {
+ /* width: 100%; */
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+}
+
+.homeMark span {
+ width: 0.9vh;
+ height: 0.9vh;
+ background-color: #fff;
+ border-radius: 50%;
+ margin-left: 0.6vh;
+}
+
+.homeMark span {
+ animation: breathe 0.7s ease-in-out infinite alternate;
+ -webkit-animation: breathe 0.7s ease-in-out infinite alternate;
+ -moz-animation: breathe 0.7s ease-in-out infinite alternate;
+ -o-animation: breathe 0.7s ease-in-out infinite alternate;
+}
+
+.homeMark span:nth-of-type(1) {
+ opacity: 0.2;
+ filter: alpha(opacity=20);
+ -animation-delay: 100ms;
+ -webkit-animation-delay: 100ms;
+ -moz-animation-delay: 100ms;
+ -o-animation-delay: 100ms;
+}
+
+.homeMark span:nth-of-type(2) {
+ opacity: 0.1;
+ filter: alpha(opacity=10);
+ -animation-delay: 300ms;
+ -webkit-animation-delay: 300ms;
+ -moz-animation-delay: 300ms;
+ -o-animation-delay: 300ms;
+}
+
+.homeMark span:nth-of-type(3) {
+ opacity: 0;
+ filter: alpha(opacity=0);
+ -animation-delay: 500ms;
+ -webkit-animation-delay: 500ms;
+ -moz-animation-delay: 500ms;
+ -o-animation-delay: 500ms;
+}
+
+@keyframes breathe {
+ 0% {
+  opacity: 0;
+  filter: alpha(opacity=0);
+ }
+
+ 100% {
+  opacity: 1;
+  filter: alpha(opacity=1);
+ }
+}
+
+@-webkit-keyframes breathe {
+ 0% {
+  opacity: 0;
+  filter: alpha(opacity=0);
+ }
+
+ 100% {
+  opacity: 1;
+  filter: alpha(opacity=1);
+ }
+}
+
+@-moz-keyframes breathe {
+ 0% {
+  opacity: 0;
+  filter: alpha(opacity=0);
+ }
+
+ 100% {
+  opacity: 1;
+  filter: alpha(opacity=1);
+ }
+}
+
+@-o-keyframes breathe {
+ 0% {
+  opacity: 0;
+  filter: alpha(opacity=0);
+ }
+
+ 100% {
+  opacity: 1;
+  filter: alpha(opacity=1);
+ }
+}

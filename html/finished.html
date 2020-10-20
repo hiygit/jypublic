@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>线路车</title>
+		<link rel="stylesheet" type="text/css" href="../css/routercar.css" />
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div class="banner">
+			<div class="content">
+				<!-- 司机信息 -->
+				<div class="driver-box">
+					<!-- ../images/logox.png -->
+					<span class="driver-head"><img id="driver-head" src="" ></span>
+					<p class="driver-info">
+						<div class="driInfo-top">
+							<span id="name" class="carNum">王师傅</span>
+							<span class="jialing"> <i id="driveryears" style="font-style: normal;">5</i>年驾龄</span>
+						</div>
+						<div class="driInfo-top">
+							<span class="carNum" id="carno">晋AVL521</span>
+							<span class="carName" id="cartype">金色 · 吉利帝豪</span>
+						</div>
+					</p>
+					<div class="phone-icon">
+						<!-- <a href="tel:18234556154"><img src="../images/phoneicon.png" ></a>  -->
+						<a id="driverphone" class="phone-icon"><img src="../images/phoneicon.png" ></a>
+					</div>
+				</div>
+				
+				<div class="content-top">
+					<span>
+						<img class="user-icon" src="../images/user.png">
+						<input class="peopleNum" type="text" id="peoplenum" value="" placeholder="3人" readonly />
+					</span>
+					<div class="money-box">
+						<p>
+							<strong id="moneynum">0.01</strong>元/<i><img class="zuowei" src="../images/zuowei.png"></i>
+						</p>
+						<div class="moneyPay-box">
+							<span class="pay-left">
+								<img id="pay-leftimg" class="moneygray-icon" src="../images/moneyhui.png" >
+								<span id="pay-left">未付款</span>
+							</span>
+							<span class="pay-left" style="float: right;">
+								<img id="pay-rightimg" class="moneygray-icon" src="../images/peoplen.png" >
+								<span id="pay-right">未上车</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="content-bottom">
+					<div class="lineCar">
+						<span id="ordertype">线路车: </span>
+						<!-- <input class="city" type="text" name="" id="cfcity" value="" placeholder="运城市——万荣县"/> -->
+						<span class="city" id="cfcity">运城市</span>
+						<span class="city">—</span>
+						<span class="city" id="endcity">万荣县</span>
+						<input class="datetime" type="text" name="" id="datetime" value="" placeholder="3月2日14:00" readonly />
+					</div>
+					<p class="protocol" >
+						<i></i> 
+						<span id="jtcfcity">运城市</span>
+					</p>
+					<p class="protocol">
+						<i style="background: red;"></i> 
+						<span id="jtendcity">万荣县</span>
+					</p>
+				</div>
+			</div>
+			<div class="total-box">
+				合计
+				<div class="price-box">
+					<input type="number" name="" id="sum" value="" readonly />元
+				</div>
+			</div>
+			<div class="payment" id="payment" >立即付款</div>
+			<div class="payment order" id="orderno">取消订单</div>
+			
+			<div class="payment waiting">等待派车</div>
+			<div class="payment driAddress">查看司机位置</div>
+			<div class="payment curposi">查看当前位置</div>
+			<div class="payment immediate_eval" id="evaluate">立即评价</div>
+			<div class="payment daifukuan">待付款</div>
+			
+			<!-- 评价 -->
+			<div class="pj-bigbox" hidden>
+				<p>评价：
+					<span class="xx-box">
+						<!-- <img src="../images/lanxing.png" >
+						<img src="../images/lanxing.png" >
+						<img src="../images/lanxing.png" >
+						<img src="../images/lanxing.png" >
+						<img src="../images/xingx.png" > -->
+					</span>
+				</p>
+				<p class="pj-text">
+					司机的服务态度很好！准时到到达出发地，下次还会选择遮掩的出行方式。
+				</p>
+			</div>
+			<div class="finish">完成</div>
+			
+			
+			<!-- 选择支付方式 -->
+			<!-- <div class="check-box">
+				<h5>选择支付方式</h5>
+				<div class="alipay">
+					<img class="alipay-img" src="../images/zhifu.png" >
+					<span class="alipay-text">支付宝支付</span>
+					<input class="check-btn" type="checkbox" name="" id="" value="" checked="checked"/>
+				</div>
+				<div class="alipay" style="margin-bottom: 1rem;">
+					<img class="alipay-img" src="../images/wx.png" >
+					<span class="alipay-text">微信支付</span>
+					<input class="check-btn" type="checkbox" name="" id="" value="" checked="checked"/>
+				</div>
+				<div class="payment" id="quitpay">立即付款</div>
+			</div> -->
+			
+			<!-- 支付金额 弹窗 -->
+			<!-- <div class="zhifu-body">
+				<div class="zhifu-box">
+					<p class="moneyNum-box">￥<input class="moneyNum" type="number" name="" id="" value="170.00"/></p>
+					<span class="zhifu-btn">支付金额</span>
+					<div class="pswd">
+						<input type="password" name="" id="" value="" readonly />
+						<input type="password" name="" id="" value="" readonly />
+						<input type="password" name="" id="" value="" readonly />
+						<input type="password" name="" id="" value="" readonly />
+						<input type="password" name="" id="" value="" readonly />
+						<input type="password" name="" id="" value="" readonly />
+					</div>
+					<div class="fukuan">立即付款</div>
+				</div>			
+			</div> -->
+			
+			<!-- 取消订单 弹窗 -->
+			<div class="cancelOrder-body">
+				<div class="cancelOrder-box">
+					<p class="cancelOrder-title">取消订单</p>
+					<p class="cancelOreder-hint" id="cancelOreder-hint">当前订单还未派车成功，您可以免费取消订单，确认要取消当前订单吗？</p>
+					<!-- <p class="cancelOreder-hint" id="order-tk">当前订单已成功派车，您目前可以免费取消订单，当12分钟后，则不可以免费取消确认要取消当前订单吗？</p> -->
+					<!-- <p class="cancelOreder-hint">当前订单已成功派车，订单时长已超过12分钟，会扣除当前订单费用的5%，确认要取消当前订单吗？</p> -->
+
+					<div class="yn">
+						<span class="quxiao" id="quxiao">取消</span>
+						<span class="quxiao sure" id="sure">确认</span>
+					</div>
+				</div>			
+			</div>
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" style="display: none;">
+				<!-- 请选择出发地 -->
+			</div>
+		</div>
+		
+		
+		<script src="../js/finished.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

@@ -1,0 +1,169 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,body{
+	font-size: 16px;
+}
+.banner{
+	width: 100vw;
+	height: 100vh;
+	/* position: relative; */
+	/* background: url(../images/gbeijing.png) no-repeat; */
+	/* background-size: 100%; */
+	padding-top: 20%;
+}
+/* .banner>img.img_g{
+	width: 100%;
+	height: 100%;
+} */
+.title{
+	font-size: 1rem;
+	font-weight: 400;
+	padding: 0 2.5rem;
+}
+.inputbox{
+	width: 76vw;
+	margin: 0 auto;
+	/* position: absolute;
+	top: 29vh;
+	left: 50%;
+	transform: translateX(-50%); */
+	z-index: 9;
+}
+input{
+	font-size: 0.8rem;
+	border: none;
+	outline: none;
+}
+input:focus,input:active{
+	border: none;
+	outline: none;
+}
+.mess{
+	width: 45vw;
+	background: none;
+}
+.inputbox-group{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 1rem 0;
+	border-bottom: 1px solid #ccc;
+	position: relative;
+}
+.inputbox-group img{
+		width: 1.2rem;
+		height: 1.2rem;
+		margin-right: 0.5rem;
+		overflow: hidden;
+}
+.tijiaobtn{
+	 letter-spacing: 0.1rem;
+	 width: 60vw;
+	 color: #fff;
+	 text-align: center;
+	 line-height: 2.3rem;
+	 margin: 3rem auto;
+	 background: #D1D4D3;
+	 font-size: 1.1rem;
+	 border-radius: 50rem;
+}
+.verCode{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 30vw;
+	height: 2rem;
+	transform: translateY(-50%);
+	padding: 0.15rem 0.3rem;
+	font-size: 0.7rem;
+	line-height: 1.8rem;
+	color: #fff;
+	text-align: center;
+	background: #51BDFF;
+	border-radius: 50rem;
+	-webkit-appearance: none;
+}
+/* 提示框 */
+.tishimodal{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;left: 0;
+	z-index: 99;
+}
+.empty-div{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+}
+.tishibox{
+	width: 60%;
+	border-radius: 10px;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;left: 50%;
+	transform: translate(-50%,-50%);
+	background: url(../images/tanc.png) no-repeat;
+	background-size: 100% 100%;
+}
+.tishibox div{
+	text-align: center;
+	font-size: 0.85rem;
+}
+.tishibox div:first-child{
+	line-height: 5rem;
+	color: #000;
+}
+.tishibox div:last-child{
+	line-height: 3.2rem;
+	color: #fff;
+	background: #51BDFF;
+	border-bottom-left-radius: 1.2rem;
+    border-bottom-right-radius: 1.2rem;
+}
+
+.xuanze{
+	width: 3.5rem;
+	font-size: 0.8rem;
+	margin-right: 0.8rem;
+	border-right: 0.1rem solid #ccc;
+}
+/* 选择 */
+.xuanze-bigbox{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.2);
+	position: absolute;
+	top: 0;left: 0;
+	display: none;
+}
+.white-box{
+	width: 78%;
+	font-size: 0.8rem;
+	line-height: 3rem;
+	background: #fff;
+	border-radius: 0.3rem;
+	position: absolute;
+	top: 50%;left: 50%;
+	transform: translate(-50%,-50%);
+}
+.xuanze-text{
+	padding: 0 1rem;
+	border-bottom: 1px solid #ccc;
+}
+.read{
+	font-size: 0.8rem;
+	margin-top: 1rem;
+}
+.checked{
+	/* display: inline-block; */
+	width: 0.8rem;
+	height: 0.8rem;
+}
+.lianjie{
+	color: #4A7BB2;
+	text-decoration: none;
+}

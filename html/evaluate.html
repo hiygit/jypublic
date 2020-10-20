@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>评价</title>
+		<link rel="stylesheet" type="text/css" href="../css/evaluate.css"/>
+		
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="banner">
+			<div class="header-driver">
+				<div class="driver-box">
+					<span class="driver-head"><img id="headimg" src="../images/logox.png" ></span>
+					<p class="driver-info">
+						<div class="driInfo-top">
+							<span id="name" carNum>王师傅</span>
+							<!-- <span class="jialing">5年驾龄</span> -->
+							<span class="jialing"> <i id="driveryears" style="font-style: normal;">5</i>年驾龄</span>
+						</div>
+						<div class="driInfo-top">
+							<span class="carNum" id="carno">晋AVL521</span>
+							<span class="carName" id="cartype">金色 · 吉利帝豪</span>
+						</div>
+					</p>
+					<a id="driverphone" class="phone-icon"><img src="../images/phoneicon.png" ></a>
+				</div>
+				<div class="pj-content">
+					<div class="xing-box">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<div class="pj-box">
+						<textarea name="" id="content" maxlength="160" placeholder="评价: 有什么想说的,赶快评价吧!"></textarea>
+						<span class="textTotal"><i id="fontsizelength" style="font-style: normal;">0</i>/160</span>
+					</div>
+				</div>
+			</div>
+			<div class="baocun" id="baocun">保存</div>
+			
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" style="display: none;">
+				<!-- 请选择出发地 -->
+			</div>
+		</div>
+		<script src="../js/evaluate.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

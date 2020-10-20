@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/myjournery.css" />
+
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<title>我的行程</title>
+	</head>
+	<body>
+		<!-- <header>上拉加载，下拉刷新 -->
+		<ul class="tab">
+			<li class="active">未完成订单</li>
+			<li>待评价订单</li>
+			<li>已完成订单</li>
+		</ul>
+		<!-- </header> -->
+		<div id="wrapper">
+			<div id="scroller">
+				<ul class="content">
+					
+				</ul>
+				<div class="pull-loading" >
+					上拉加载
+				</div>
+			</div>
+		</div>
+
+		<!-- <footer>底部</footer> -->
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/iscroll.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				var jony = JSON.parse(localStorage.getItem("name"));
+				console.log(jony)
+				var orderid;
+				var myscroll = new iScroll("wrapper", {
+					onScrollMove: function() { //拉动时
+						//上拉加载
+						if (this.y < this.maxScrollY) {
+							$(".pull-loading").html("释放加载");
+							$(".pull-loading").addClass("loading");
+						} else {
+							$(".pull-loading").html("上拉加载");
+							$(".pull-loading").removeClass("loading");
+						}
+					},
+					onScrollEnd: function() { //拉动结束时
+						//上拉加载
+						if ($(".pull-loading").hasClass('loading')) {
+							$(".pull-loading").html("我是有底线的");
+							// pullOnLoad();
+						}
+					}
+				});
+				//上拉加载函数,ajax
+				var pageNo = 0;
+
+				//初始化先加载三条数据
+				function pullOnLoad(num) {
+					// $(".content").html("")
+					setTimeout(function() {
+						$.ajax({
+							url: publicjs + '/app/passenger/myorderList',
+							type: "POST",
+							dataType: "JSON",
+							data: {
+								orderStatus: num,
+								pageNo:pageNo
+							},
+							headers: {
+								"token": jony.token //此处放置请求到的用户token
+							},
+							success: function(data) {
+								console.log(data)
+								if (data.errorCode == -1) {
+									$(".pull-loading").html("");
+								} else if (data.errorCode == 0) {
+									orderid = data.body.orderList[0].ID
+								}
+								// console.log(orderid)
+								if(data.errorCode == 0){
+									var data_length = data.body.orderList.length; //数据的总长度
+									var htmls = "";
+									if (data_length >0) {
+										for (var i = 0;i<data_length;i++) {
+											var str = "";
+											if (data.body.orderList[i].orderStatus == "0") {
+												str = "未付款"
+												$("#going").css("color","#458BEE")
+											} else if (data.body.orderList[i].orderStatus == "1") {
+												str = "待派车"
+											} else if (data.body.orderList[i].orderStatus == "2") {
+												str = "待上车"
+											} else if (data.body.orderList[i].orderStatus == "3") {
+												str = "进行中"
+											} else if (data.body.orderList[i].orderStatus == "4") {
+												str = "待评价"
+											} else if (data.body.orderList[i].orderStatus == "5") {
+												str = "已完成"
+												$("#going").css("color","#A9A9A9")
+											} else if (data.body.orderList[i].orderStatus == "6") {
+												if(data.body.orderList[i].quitodrdertime == null){
+													str = "已完成"
+													console.log(2551)
+												}else{
+													str = "已取消"
+													console.log(1211)
+												}
+											}
+											htmls += '<li style="display: block;">'+
+												'<div class="order-bigbox" data-id="'+data.body.orderList[i].ID+'">'+
+													'<div class="order-box" id="jxz">'+
+														'<p class="order-border"> 订单号：<span class="number" id="orderno">'+data.body.orderList[i].orderNo+'</span>'+
+														'<span class="going" style="color:'+(data.body.orderList[i].orderStatus==3?'#277AEC':data.body.orderList[i].orderStatus==4?'green':data.body.orderList[i].orderStatus==6?'#AAAAAA':data.body.orderList[i].orderStatus==5?'#AAAAAA':'' )+'" id="going">'+str+'<img class="yjl" src="../images/youlan.png"></span>'+														'</p>'+
+														'<p class="cityt"><img class="weizhi" src="../images/weizhi2.png">'+
+															'<span id="startCity">'+data.body.orderList[i].startCity+'</span>'+
+															'<span>—</span>'+
+															'<span id="endCity">'+data.body.orderList[i].endCity+'</span>'+
+														'</p>'+
+														'<p class="time">'+
+															'<img class="time-icon" src="../images/time.png">'+
+															'<span id="createDate">'+data.body.orderList[i].createDate+'</span>'+
+														'</p>'+
+													'</div>'+
+												'</div>'+
+											'</li>';
+										}
+										$(".content").append(htmls)
+										pageNo+=1
+									} else {
+										$('.pull-loading').html("我是有底线的");
+									}
+								}else{
+									$(".content").html("")
+								}
+								myscroll.refresh();
+							},
+							error: function() {
+								console.log("出错了");
+							}
+						});
+					}, 500);
+				}
+				pullOnLoad(0);
+				$('.tab').find('li').click(function() {
+					$(".content").html("")
+					var index = $(this).index();
+					pageNo = 0
+					$(this).addClass('active').siblings().removeClass('active');
+					pullOnLoad(index);
+				})
+				$(document).on('click', '.content li div.order-bigbox', function() {
+					event.preventDefault()
+					var id = $(this).data("id");
+					console.log(id)
+					location.href = "myjournery_routercar.html?orderid=" + id
+				})
+				
+			})
+		</script>
+	</body>
+</html>

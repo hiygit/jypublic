@@ -1,0 +1,101 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	background: #FAFAFA;
+}
+li{
+	list-style: none;
+}
+input {
+	outline: none;
+	border: none;
+	background: none;
+	/* -webkit-appearance:none; */
+} 
+input[disabled],input:disabled,input.disabled{
+	color: #B1B1B1;
+	-webkit-text-fill-color: #B1B1B1;
+	-webkit-opacity:1;
+	opacity: 1;
+}
+input::-webkit-input-placeholder{
+　　coloc: #C2C2C2;　　//当然，其他样式也可以在这里修改
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+h3{
+    display: block;
+    font-size: 0.8rem;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.wrap{
+	width: 100%;
+	height: 100%;
+	background: #F9FAFA;
+	/* padding: 1rem 0.8rem; */
+}
+.listBox{
+	width: 100%;
+	padding: 0 0.8rem;
+	background: #fff;
+}
+.listBox li a{
+	display: flex;
+	justify-content: space-between;
+	padding: 0.8rem 0;
+	border-bottom: 1px solid #F7F7F7;
+}
+.listBox-left{
+	width: 95%;
+}
+.title{
+	color: #333333;
+	font-size: 0.8rem;
+}
+.titleDetail{
+	color: #B1B1B1;
+	font-size: 0.75rem;
+	line-height: 1.5rem;
+}
+.youhui{
+	width: 0.4rem;
+	height: 0.7rem;
+	margin-top: 0.3rem;
+}
+.dissuggest{
+	width: 100%;
+	padding: 0 0.8rem;
+	margin-top: 0.5rem;
+	background: #fff;
+}
+.dissuggest a{
+	display: flex;
+	justify-content: space-between;
+	padding: 0.8rem 0;
+	border-bottom: 1px solid #F7F7F7;
+}
+
+
+/* 客服图片 */
+.kefuimg{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	position: fixed;
+	top: 41%;
+	right: 1.5rem;
+}
+.kefuimg img{
+	width: 100%;
+	height: 100%;
+}

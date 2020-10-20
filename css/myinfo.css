@@ -1,0 +1,45 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.banner{
+	width: 100vw;
+	height: 100%;
+	padding: 1rem 0.8rem;
+	background: #F8F7F7;
+}
+.myinfo-box{
+	width: 100%;
+	color: #B0B0B0;
+	font-size: 0.75rem;
+	padding-top: 0.8rem;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.myinfo-box p{
+	padding: 0 0.5rem;
+	line-height: 2.3rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.img{
+	float: right;
+	width: 2rem;
+	height: 2rem;
+	background: #277AEC;
+	border-radius: 50%;
+}
+.img img{
+	width: 100%;
+	height: 100%;
+}
+input{
+	display: inline-block;
+	outline: none;
+	border: none;
+	float: right;
+	color: #666;
+	font-size: 0.75rem;
+	text-align: right;
+	margin-top: 0.7rem;
+}

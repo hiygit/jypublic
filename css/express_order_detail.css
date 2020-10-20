@@ -1,0 +1,242 @@
+html,body{
+	font-size: 0.7rem;
+	background: #F8F7F7;
+	padding-bottom: .5rem; 
+}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+li{
+	list-style: none;
+}
+.content{
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 0.5rem;
+	background: #FFFFFF;
+	border-radius: 0.2rem;
+}
+.content-top{
+	width: 100%;	
+	padding: 0.5rem;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+.waiting-contact{
+	width: 15%;
+	height: 100%;
+	float: left;
+	margin-top: 0.5rem;
+}
+.waiting-contact img{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	margin: 0 auto;
+}
+.waiting-contact-text{
+	width: 82%;
+	height: 3rem;
+	color: #6E6E6E;
+	float: right;
+	line-height: 1rem;
+	/* padding-left: 0.5rem; */
+	padding-top: 0.5rem;
+}
+/* 订单信息 */
+.order-info-box{
+	width: 100%;
+	padding: 0.5rem;
+}
+.order-info-box ul li{
+	color: #CACACA;
+	margin-bottom: 1rem;
+}
+.order-info-box ul li span{
+	display: inline-block;
+	width: 75%;
+	color: #676767;
+	float: right;
+	text-align: right;
+}
+
+.order{
+	width: 100%;
+	color: #2B7CEC;
+	text-align: center;
+	line-height: 2.5rem;
+	letter-spacing: 1px;
+	background: #fff;
+	position: absolute;
+	bottom: 2.5rem;
+	left: 0;
+	display: none;
+}
+.refresh{
+	color: #fff;
+	background: -webkit-linear-gradient(left,#577CE6,#5132D0);
+	bottom: 0;
+}
+
+
+/* 司机信息 */
+.driver-box{
+	font-size: 0.7rem;
+	padding: 0.8rem 0.8rem;
+	border-bottom: 1px solid #F0F0F0; 
+	/* display: none; */
+}
+.driver-head{
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	float: left;
+	margin-right: 0.5rem;
+	background: #277AEC;
+	border-radius: 50%;
+}
+.driver-head img{
+	width: 100%;
+	height: 100%;
+}
+.driver-info{
+	width: 80%;
+	float: right;
+}
+.jialing{
+	color: #B5B5B5;
+	font-size: 0.6rem;
+	/* margin-left: 1rem; */
+}
+.carNum{
+	display: inline-block;
+	width: 4.5rem;
+	color: #277AEC;
+	font-size: 0.65rem;
+}
+.carName{
+	color: #666;
+	font-size: 0.65rem;
+	/* margin-left: 1.5rem; */
+}
+/* phone-icon */
+.phone-icon{
+	width: 2rem;
+	height: 2rem;
+	float: right;
+	margin-top: -1.8rem;
+	/* background: #277AEC; */
+	border-radius: 50%;
+}
+.phone-icon img{
+	width: 100%;
+	height: 100%;
+}
+
+.total-box{
+	width: 95%;
+	font-size: 0.75rem;
+	padding: 0.6rem 0.5rem;
+	margin-top: 0.5rem;
+	background: #fff;
+	border-radius: 0.3rem;
+	margin: 0 auto;
+	margin-top: 0.5rem;
+}
+.price-box{
+	color: #317FED;
+	float: right;
+}
+.total-box input{	
+	color: #317FED;
+	text-align: right;
+	outline: none;
+	border: none;
+}
+/* 评价 */
+.pj-bigbox{
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 0.5rem;
+	padding: 0.5rem;
+	background: #fff;
+	border-radius: 0.3rem;
+	/* display: none; */
+}
+.xx-box{
+	float: right;
+}
+.xx-box img{
+	width: 1.2rem;
+	height: 1.2rem;
+}
+.pj-text{
+	color: #999999;
+	font-size: 0.75rem;
+	margin-top: 0.8rem;
+}
+
+/* 取消订单 弹窗*/
+.cancelOrder-body{
+	width: 100vw;
+	height: 100%;
+	position: fixed;
+	top: 0;left: 0;
+	background: rgba(0,0,0,.3);
+	display: none;
+}
+.cancelOrder-box{
+	width: 75%;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #666;
+	font-size: 0.8rem;
+	text-align: center;
+	background: #fff;
+	border-radius: 0.3rem;
+}
+.cancelOrder-title{
+	color: #333;
+	line-height: 2.5rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.cancelOreder-hint{
+	height: 5.8rem;
+	font-size: 0.7rem;
+	line-height: 1rem;
+	padding: 1.35rem;
+	border-bottom: 1px solid #F0F0F0;
+}
+.winsure{
+	display: block;
+	width: 50%;
+	float: left;
+	color: #464646;
+	font-size: 0.8rem;
+	text-align: center;
+	line-height: 2rem;
+	background: #D5D5D5;
+}
+
+/* 提示框 */
+.tishimodal{
+	width: 40%;
+	color: #277AEC;
+	font-size: 0.7rem;
+	text-align: center;
+	line-height: 1.5rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 1px solid #277AEC;
+	border-radius: 0.3rem;
+	background: #fff;
+	z-index: 10;
+}
+
+

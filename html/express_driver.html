@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<style>
+			html,
+			body,
+			#container {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		<title>司机位置</title>
+		<link rel="stylesheet" type="text/css" href="../css/driver.css" />
+		<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+		
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.Driving"></script>
+		<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+	</head>
+	<body>
+		<div id="container"></div>
+		<div id="panel"></div>
+		<p class="orderRange">下单范围 <img src="../images/xdfw.png"></p>
+		<!-- 司机信息 -->
+		<div class="driverInfo-box">
+			<p class="time-time">司机预计15分钟后到达</p>
+			
+			<!-- <div id="sse">
+				<a href="javascript:TestSockets()">运行 WebSocket</a>
+			</div> -->
+			
+			<div class="driver-box">
+				<span class="driver-head"><img id="driver-head" src="../images/logox.png" ></span>
+				<p class="driver-info">
+					<div class="driInfo-top" style="margin-bottom: 0.3rem;">
+						<span class="driverName" style="color: #333;width: 7rem;" id="name">王师傅</span>
+						<span class="jialing"> <i id="driveryears" style="font-style: normal;">5 </i>年驾龄</span>
+					</div>
+					<div class="driInfo-top">
+						<span class="carNum driverName" style="width: 7rem;" id="carno">晋AVL521</span>
+						<span class="carName" id="cartype"></span>
+					</div>
+				</p>
+				<a id="driverphone" class="phone-icon"><img src="../images/phoneicon.png" ></a>
+			</div>
+		</div>
+		
+		<script src="../js/express_driver.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			map = new AMap.Map("container", {
+			    resizeEnable: true,
+			    zoom:16
+			});
+		</script>
+	</body>
+</html>

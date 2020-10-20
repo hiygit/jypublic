@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<!-- 原始地址：//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/positionPicker.html -->
+		<!-- <base href="//webapi.amap.com/ui/1.0/ui/misc/PositionPicker/examples/" /> -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>详细地址</title>
+		<link rel="stylesheet" type="text/css" href="../css/detailed_address.css" />
+	</head>
+
+	<body>
+		<div id="container" class="map" tabindex="0"></div>
+		<p class="orderRange">下单范围 <img src="../images/xdfw.png"></p>
+		<div class="dingwei-box">
+			<p class="dingwei-top"><i class="dian"></i>
+				<input type="text" name="" id="address-ipt" value="" placeholder="请选择具体的出发地" readonly />
+			</p>
+			<p class="dingwei-top" style="border-bottom: none;">
+				<i class="dian" style="background: #F5406B;"></i>
+				<input type="text" name="" id="lastaddress-ipt" value="" placeholder="请选择具体的目的地" readonly />
+			</p>
+		</div>
+		<div class="button-group">
+			<input type="button" class="button" value="地图编辑完成" onClick="closeEditPolygon();" />
+		</div>
+		<div class="surestart" id="surestart">确定出发</div>
+		<div class="surestart" style="background: #E6E6E6;display: none;" id="hidesure">确定出发</div>
+
+		<div id='right'>
+			<div>
+				<!-- <div class='title'>选择模式</div> -->
+				<input type='hidden' name='mode' value='dragMap' checked >
+				<!-- 拖拽地图模式 -->
+				</input>
+				</br>
+				<input type='hidden' name='mode' value='dragMarker'>
+				<!-- 拖拽Marker模式 -->
+				</input>
+			</div>
+			<div>
+				<button id='start' hidden="hidden">开始选点</button>
+				<button id='stop' hidden="hidden">关闭选点</button>
+			</div>
+			<div>
+				<!-- <div class='title'>选址结果</div> -->
+				<!-- <div class='c'>经纬度:</div> -->
+				<div id='longitude'></div>
+				<div id='latitude'></div>
+				<div id='endlongitude'></div>
+				<div id='endlatitude'></div>
+				<!-- <div class='c'>地址:</div> -->
+				<!-- <div id='address'></div>
+				<div id='lastaddress'></div> -->
+				<!-- <div class='c'>最近的路口:</div> -->
+				<div id='nearestJunction' hidden="hidden"></div>
+				<!-- <div class='c'>最近的路:</div> -->
+				<div id='nearestRoad' hidden="hidden"></div>
+				<!-- <div class='c'>最近的POI:</div> -->
+				<div id='nearestPOI' hidden="hidden"></div>
+			</div>
+
+			<!-- 提示框 -->
+			<div id="tishimodal" class="tishimodal" hidden>
+				<!-- 请选择具体的目的地 -->
+			</div>
+			<!-- 您有未完成订单 -->
+			<div id="transparencyBox" style="display: none;"></div>
+		</div>
+
+		<script type="text/javascript" src='//webapi.amap.com/maps?v=1.4.15&key=407b5196bbba99b6d3f9da18e2330a6f&plugin=AMap.ToolBar'></script>
+		<!-- UI组件库 1.0 -->
+		<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+		<script src="../js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/publicjs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/detailed_address.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var listArray = JSON.parse(localStorage.getItem("listArray"));  //出发地经纬度缓存
+			var listArraymdd = JSON.parse(localStorage.getItem("listArraymdd"));  //目的地经纬度缓存
+			var addressObj = localStorage.getItem("orderArrys")  //首页缓存
+			var cache = JSON.parse(localStorage.getItem("getCache"))  // 获取detailed_address_address.html页面的缓存
+			console.log(addressObj)
+			console.log(cache)
+			console.log(listArray)
+			console.log(listArraymdd)
+			
+			// // arrrs = chufa/mude
+			// var centers = []
+			// console.log(location.href.search())
+			var place = 0
+			AMapUI.loadUI(['misc/PositionPicker'], function(PositionPicker) {
+				var map = new AMap.Map('container', {
+					zoom: 16,
+					scrollWheel: true,
+					draggable: true,
+				})
+				var positionPicker = new PositionPicker({
+					mode: 'dragMap',
+					map: map,
+				});
+				// 目的地地理围栏
+				var lineArr = []
+				// var lineArr = listArraymdd.listArraymdd
+				var circle = new AMap.Polygon({
+				    map: map,
+				    path: lineArr,//设置多边形边界路径
+				    radius: 55500,
+				    strokeColor: "#FF33FF", //边框线颜色
+				    strokeOpacity: 0.3,       //边框线透明度
+				    strokeWeight: 1,        //边框线宽
+				    fillColor: "#1791fc", //填充色
+				    fillOpacity: 0.35//填充透明度
+				});
+				// 出发地地理围栏
+				var polygonArr = listArray.listArray;
+				var polygon = new AMap.Polygon({
+					map: map,
+					// radius: 3500,
+					path: polygonArr, //设置多边形边界路径
+					strokeColor: "#FF33FF", //线颜色
+					strokeOpacity: 0.2, //线透明度
+					strokeWeight: 1, //线宽
+					fillColor: "#1791fc", //填充色
+					fillOpacity: 0.35 //填充透明度
+				});
+				map.setFitView();
+				// var addressObj = localStorage.getItem("orderArrys")  //首页缓存
+				// var cache = JSON.parse(localStorage.getItem("getCache"))  // 获取detailed_address_address.html页面的缓存
+				// console.log(cache)
+				var twoText = decodeURI(window.location.search) 
+				var locations,locationsLng,locationsLa,districtAddress;
+				console.log(twoText)     //从detailed_address_address.html页面带过来的参数
+				var types = "";
+				if(twoText != ""){
+					types = twoText.split("=")[1].split("&")[0];
+					var districtAddress = cache.startAddress.districtAddress
+					$("#address-ipt").val(districtAddress)
+					var districtAddress = cache.endAddress.districtAddress
+					$("#lastaddress-ipt").val(districtAddress)
+					if (types == "0") {//出发地
+						var Addreslonlat = [];
+						Addreslonlat[0] = cache.startAddress.startAddressLng;
+						Addreslonlat[1] = cache.startAddress.startAddressLat;
+						map.panTo(Addreslonlat);//地图移动
+					}else if (types == "1") { //目的地
+						var lineArr = listArraymdd.listArraymdd
+						var circle = new AMap.Polygon({
+						    map: map,
+						    path: lineArr,//设置多边形边界路径
+						    radius: 55500,
+						    strokeColor: "#FF33FF", //边框线颜色
+						    strokeOpacity: 0.3,       //边框线透明度
+						    strokeWeight: 1,        //边框线宽
+						    fillColor: "#1791fc", //填充色
+						    fillOpacity: 0.35//填充透明度
+						});
+						var Addreslonlat = [];
+						Addreslonlat[0] = cache.endAddress.endAddressLng;
+						Addreslonlat[1] = cache.endAddress.endAddressLat;
+						map.panTo(Addreslonlat);//地图移动
+					}
+				}else{
+					map.panTo(listArray.listcenter);//地图移动
+					var districtAddress = addressObj.startCity
+					$("#address-ipt").val(districtAddress)
+					$("#lastaddress-ipt").val("")
+				}
+				positionPicker.on('success', function(positionResult) {
+					console.log(positionResult)
+					// var startAddressLat = cache.startAddress.startAddressLat
+					// var startAddressLng = cache.startAddress.startAddressLng
+					// var endAddressLat = cache.endAddress.endAddressLat
+					// var endAddressLng = cache.endAddress.endAddressLng
+					// console.log(startAddressLat,startAddressLng)
+					// console.log(endAddressLat,endAddressLng)
+					// console.log(types)
+					if (place == 0) {
+						var ALon = positionResult.position.lng;
+						var ALat = positionResult.position.lat;
+						var APoints = types==1?listArraymdd.listArraymdd:polygonArr
+						var iSum = 0,
+							iCount;
+						var dLon1, dLon2, dLat1, dLat2, dLon;
+						if (APoints.length < 3) return false;
+						iCount = APoints.length;
+						for (var i = 0; i < iCount; i++) {
+							if (i == iCount - 1) {
+								dLon1 = APoints[i].lng;
+								dLat1 = APoints[i].lat;
+								dLon2 = APoints[0].lng;
+								dLat2 = APoints[0].lat;
+							} else {
+								dLon1 = APoints[i].lng;
+								dLat1 = APoints[i].lat;
+								dLon2 = APoints[i + 1].lng;
+								dLat2 = APoints[i + 1].lat;
+							}
+							//以下语句判断A点是否在边的两端点的水平平行线之间，在则可能有交点，开始判断交点是否在左射线上
+							if (((ALat >= dLat1) && (ALat < dLat2)) || ((ALat >= dLat2) && (ALat < dLat1))) {
+								if (Math.abs(dLat1 - dLat2) > 0) {
+									//得到 A点向左射线与边的交点的x坐标：
+									dLon = dLon1 - ((dLon1 - dLon2) * (dLat1 - ALat)) / (dLat1 - dLat2);
+									if (dLon < ALon)
+										iSum++;
+								}
+							}
+						}
+						//判断是否在电子围栏范围内
+						if (iSum % 2 != 0) {
+							document.getElementById('longitude').innerHTML = positionResult.position;
+							document.getElementById('latitude').innerHTML = positionResult.position;
+							// document.getElementById('address-ipt').value = twoText==""?positionResult.address:cache.startAddress.districtAddress;
+							document.getElementById('nearestJunction').innerHTML = positionResult.nearestJunction;
+							document.getElementById('nearestRoad').innerHTML = positionResult.nearestRoad;
+							document.getElementById('nearestPOI').innerHTML = positionResult.nearestPOI;
+							if(types==1){
+								document.getElementById('lastaddress-ipt').value = positionResult.address
+							}else{
+								document.getElementById('address-ipt').value = positionResult.address
+							}
+						} else {
+							document.getElementById('longitude').innerHTML = "";
+							document.getElementById('latitude').innerHTML = "";
+							// document.getElementById('address-ipt').value = "";
+							document.getElementById('nearestJunction').innerHTML = "";
+							document.getElementById('nearestRoad').innerHTML = "";
+							document.getElementById('nearestPOI').innerHTML = "";
+							if(types==1){
+								document.getElementById('lastaddress-ipt').value = "";
+							}else{
+								document.getElementById('address-ipt').value = "";
+							}
+							$("#tishimodal").show()
+							$("#tishimodal").html("不在电子围栏范围内")
+							setTimeout(function() {
+								$("#tishimodal").hide()
+							}, 2000)
+						}
+					} 
+				});
+				positionPicker.on('fail', function(positionResult) {
+					document.getElementById('longitude').innerHTML = ' ';
+					document.getElementById('latitude').innerHTML = ' ';
+					document.getElementById('endlongitude').innerHTML = ' ';
+					document.getElementById('endlatitude').innerHTML = ' ';
+					document.getElementById('address-ipt').value = ' ';
+					document.getElementById('lastaddress-ipt').value = ' ';
+					document.getElementById('nearestJunction').innerHTML = ' ';
+					document.getElementById('nearestRoad').innerHTML = ' ';
+					document.getElementById('nearestPOI').innerHTML = ' ';
+				});
+				var onModeChange = function(e) {
+					positionPicker.setMode(e.target.value)
+				}
+				var startButton = document.getElementById('start');
+				var stopButton = document.getElementById('stop');
+				var dragMapMode = document.getElementsByName('mode')[0];
+				var dragMarkerMode = document.getElementsByName('mode')[1];
+				AMap.event.addDomListener(startButton, 'click', function() {
+					positionPicker.start(map.getBounds().getSouthWest())
+				})
+				AMap.event.addDomListener(stopButton, 'click', function() {
+					positionPicker.stop();
+				})
+				AMap.event.addDomListener(dragMapMode, 'change', onModeChange)
+				AMap.event.addDomListener(dragMarkerMode, 'change', onModeChange);
+				positionPicker.start();
+
+				map.addControl(new AMap.ToolBar({
+					liteStyle: true
+				}))
+
+				// 0 具体出发地    1 具体目的地
+				$("#address-ipt").click(function() {
+					// place = 0
+					var startAddress = JSON.parse(addressObj.split(":")[1].split(",")[0])
+					location.href = "detailed_address_address.html?address=0&startAddress=" + startAddress
+				})
+				$("#lastaddress-ipt").click(function() {
+					// place = 1
+					var endAddress = JSON.parse(addressObj.split(":")[2].split(",")[0])
+					console.log(endAddress)
+					location.href = "detailed_address_address.html?address=1&endAddress=" + endAddress
+				})
+			});
+		</script>
+	</body>
+
+</html>
